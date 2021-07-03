@@ -42,5 +42,5 @@ const users = [{
 
  
 export default function data(req, res) {
-  res.json(users)
+  res.status(200).json(users)
 }

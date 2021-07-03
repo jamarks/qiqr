@@ -79,7 +79,16 @@ export default function Profile({ user }) {
 }
 
       export async function getStaticPaths() {
- const reqUsers = await fetch(`${server}/api/data`)
+ const reqUsers = await fetch(`${server}/api/data`,
+ {
+   method: "GET",
+   headers: {
+     // update with your user-agent
+     "User-Agent":
+       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+     Accept: "application/json; charset=UTF-8",
+   },
+ })
       const users = await reqUsers.json()
 
  const paths = users.map((item) => ({
@@ -90,7 +99,16 @@ export default function Profile({ user }) {
 }
 
       export async function getStaticProps({params}) {
- const reqUsers = await fetch(`${server}/api/data`)
+ const reqUsers = await fetch(`${server}/api/data`,
+ {
+   method: "GET",
+   headers: {
+     // update with your user-agent
+     "User-Agent":
+       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+     Accept: "application/json; charset=UTF-8",
+   },
+ })
       const users = await reqUsers.json()
  const user = users.find(item => item.permalink == params.id)
 
