@@ -1,5 +1,5 @@
 
-export default async (req, res) => {
+export default function get(req, res) {
 
  // Instead of static content this would be the place for a db request.
  

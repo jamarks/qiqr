@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 
-const users = [{
+export const users = [{
 	name: "Claudia Lewin",
 	permalink: "abg-claudia-lewin",
 	photo: "https://media-exp3.licdn.com/dms/image/C4D03AQErYA_Z8MqvAA/profile-displayphoto-shrink_800_800/0/1621239308415?e=1630540800&v=beta&t=gq5F5IFxDUF9iQP1W3P_ZnU9eHbXguAczpRFs128C2c",
@@ -39,8 +39,3 @@ const users = [{
 		url: "http://www.abg.com"
 	}]
 }]
-
- 
-export default function data(req, res) {
-  res.status(200).json(users)
-}

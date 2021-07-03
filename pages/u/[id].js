@@ -1,12 +1,12 @@
 import Layout from '../../components/layout'
 import Image from 'next/image'
-import { server } from '../../config'
+import { users } from '../../data'
 
 
 //https://www.npmjs.com/package/vcards-js
 
 export default function Profile({ user }) {
-  console.log(user)
+  //console.log(user)
   return (
     <Layout>
       <div className="flex flex-col-reverse lg:flex-row w-full bg-white dark:bg-gray-800 shadow rounded">
@@ -79,7 +79,8 @@ export default function Profile({ user }) {
 }
 
 export async function getStaticPaths() {
-  const reqUsers = await fetch(`${server}/api/get`, {
+  
+  /*const reqUsers = await fetch(`${server}/api/get`, {
     method: "GET",
     headers: {
       // update with your user-agent
@@ -88,9 +89,10 @@ export async function getStaticPaths() {
       Accept: "application/json; charset=UTF-8",
     },
   })
+  
   const users = await reqUsers.json()
-
-  const paths = users.data.map((item) => ({
+  */
+  const paths = users.map((item) => ({
     params: { id: item.permalink }
   }))
 
@@ -98,7 +100,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const reqUsers = await fetch(`${server}/api/get`, {
+  /*const reqUsers = await fetch(`${server}/api/get`, {
     method: "GET",
     headers: {
       // update with your user-agent
@@ -108,7 +110,8 @@ export async function getStaticProps({ params }) {
     },
   })
   const users = await reqUsers.json()
-  const user = users.data.find(item => item.permalink == params.id)
+  */
+  const user = users.find(item => item.permalink == params.id)
 
   return {
     props: {
