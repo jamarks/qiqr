@@ -5,6 +5,6 @@ module.exports = {
   },
   reactStrictMode: true,
   images: {
-    domains: ['via.placeholder.com'],
+    domains: ['via.placeholder.com','media-exp3.licdn.com'],
   },
 }
