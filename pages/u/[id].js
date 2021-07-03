@@ -17,7 +17,7 @@ export default function Profile({ user }) {
               <div className='w-full '><h1 className=" mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.name}<small className='pd-2 text-xs text-gray-500 font-light'> {user.titlesmall}</small></h1></div>
               <div className='w-full '><h2 className="lg:mt-0 text-gray-600 dark:text-gray-400 text-base font-normal">{user.title}</h2></div>
             </div>
-            
+
             <p className="mb-6 font-normal text-gray-600 dark:text-gray-400 text-sm tracking-normal w-11/12 lg:w-9/12">{user.aboutme}</p>
             <div className="flex lg:items-center items-start flex-col lg:flex-row">
               <button className="text-gray-600 dark:text-gray-400 focus:outline-none hover:text-indigo-700 focus:text-indigo-700 mt-4 lg:mt-0 ml-0 lg:ml-0 flex items-end">
@@ -35,20 +35,20 @@ export default function Profile({ user }) {
           <div className="px-5 lg:px-5 md:px-10 py-3 lg:py-4 flex flex-row items-center justify-between border-t border-gray-300">
             <div className="flex items-center">
               <div className="flex items-center">
-              <div className="px-1 pt-4">
-                    <a href={'mailto:' + user.email} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Email</a>
+                <div className="px-1 pt-4">
+                  <a href={'mailto:' + user.email} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Email</a>
                 </div>
                 <div className="px-1 pt-4">
-                    <a href={'tel:' + user.phone} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Phone</a>
+                  <a href={'tel:' + user.phone} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Phone</a>
                 </div>
                 <div className="px-1 pt-4">
-                    <a href={user.linkedin} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">LinkedIn</a>
+                  <a href={user.linkedin} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">LinkedIn</a>
                 </div>
                 <div className="px-1 pt-4">
-                    <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)}className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Address</a>
+                  <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Address</a>
                 </div>
               </div>
-              
+
             </div>
             <div className="flex items-center pt-3">
               <button aria-label="save" className="focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
@@ -73,48 +73,46 @@ export default function Profile({ user }) {
         </div>
       </div>
     </Layout>
-      )
+  )
 
 
 }
 
-      export async function getStaticPaths() {
- const reqUsers = await fetch(`${server}/api/data`,
- {
-   method: "GET",
-   headers: {
-     // update with your user-agent
-     "User-Agent":
-       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
-     Accept: "application/json; charset=UTF-8",
-   },
- })
-      const users = await reqUsers.json()
+export async function getStaticPaths() {
+  const reqUsers = await fetch(`${server}/api/get`, {
+    method: "GET",
+    headers: {
+      // update with your user-agent
+      "User-Agent":
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+      Accept: "application/json; charset=UTF-8",
+    },
+  })
+  const users = await reqUsers.json()
 
- const paths = users.map((item) => ({
-        params: {id: item.permalink }
- }))
+  const paths = users.data.map((item) => ({
+    params: { id: item.permalink }
+  }))
 
-      return {paths, fallback: false }
+  return { paths, fallback: false }
 }
 
-      export async function getStaticProps({params}) {
- const reqUsers = await fetch(`${server}/api/data`,
- {
-   method: "GET",
-   headers: {
-     // update with your user-agent
-     "User-Agent":
-       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
-     Accept: "application/json; charset=UTF-8",
-   },
- })
-      const users = await reqUsers.json()
- const user = users.find(item => item.permalink == params.id)
+export async function getStaticProps({ params }) {
+  const reqUsers = await fetch(`${server}/api/get`, {
+    method: "GET",
+    headers: {
+      // update with your user-agent
+      "User-Agent":
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+      Accept: "application/json; charset=UTF-8",
+    },
+  })
+  const users = await reqUsers.json()
+  const user = users.data.find(item => item.permalink == params.id)
 
-      return {
-        props: {
-        user: user
+  return {
+    props: {
+      user: user
+    }
   }
- }
 }
