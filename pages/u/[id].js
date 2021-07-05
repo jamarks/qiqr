@@ -1,6 +1,6 @@
 import Layout from '../../components/layout'
 import Image from 'next/image'
-import { users } from '../../data'
+//import { users } from '../../data'
 
 
 //https://www.npmjs.com/package/vcards-js
@@ -34,7 +34,7 @@ export default function Profile({ user }) {
           </div>
           <div className="px-5 lg:px-5 md:px-10 py-3 lg:py-4 flex flex-row items-center justify-between border-t border-gray-300">
             <div className="flex items-center">
-              <div className="flex items-center">
+              
                 <div className="px-1 pt-4">
                   <a href={'mailto:' + user.email} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Email</a>
                 </div>
@@ -42,16 +42,15 @@ export default function Profile({ user }) {
                   <a href={'tel:' + user.phone} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Phone</a>
                 </div>
                 <div className="px-1 pt-4">
-                  <a href={user.linkedin} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">LinkedIn</a>
+                  <a href={user.linkedin} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Linkedin</a>
                 </div>
                 <div className="px-1 pt-4">
                   <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Address</a>
                 </div>
-              </div>
-
             </div>
-            <div className="flex items-center pt-3">
-              <button aria-label="save" className="focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
+            
+            <div className="flex pt-3 ">
+                <button aria-label="save" className="text-indigo-700 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
                 <svg className="feather feather-bookmark" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                 </svg>
@@ -80,19 +79,10 @@ export default function Profile({ user }) {
 
 export async function getStaticPaths() {
   
-  /*const reqUsers = await fetch(`${server}/api/get`, {
-    method: "GET",
-    headers: {
-      // update with your user-agent
-      "User-Agent":
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
-      Accept: "application/json; charset=UTF-8",
-    },
-  })
-  
+  const reqUsers = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users`)
   const users = await reqUsers.json()
-  */
-  const paths = users.map((item) => ({
+  
+  const paths = users.entriesData.map((item) => ({
     params: { id: item.permalink }
   }))
 
@@ -100,18 +90,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  /*const reqUsers = await fetch(`${server}/api/get`, {
-    method: "GET",
-    headers: {
-      // update with your user-agent
-      "User-Agent":
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
-      Accept: "application/json; charset=UTF-8",
-    },
-  })
+  const reqUsers = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users`)
   const users = await reqUsers.json()
-  */
-  const user = users.find(item => item.permalink == params.id)
+  
+  const user = users.entriesData.find(item => item.permalink == params.id)
 
   return {
     props: {
