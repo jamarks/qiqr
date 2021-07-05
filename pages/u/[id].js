@@ -7,13 +7,13 @@ import db from '../../utils/db';
 export default function Profile({ user }) {
   //console.log(user)
   return (
-    <Layout>
+    <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name}>
       <div className="flex flex-col-reverse lg:flex-row w-full bg-white dark:bg-gray-800 shadow rounded">
         <div className="w-full lg:w-1/2">
-          <div aria-label="card" className="pt-4 lg:pt-6 pb-4 lg:pb-6 pl-4 lg:pl-6 pr-4 lg:pr-6">
-            <div className="flex justify-between items-center lg:items-start flex-col lg:flex-col mb-3">
+          <div aria-label="card" className="px-5 md:py-3 py-8">
+            <div className="flex justify-between items-center flex-col mb-3 ">
               <div className='w-full '><h4 className="text-base text-blue-900 dark:text-indigo-600 tracking-normal leading-4">{user.companyname}</h4></div>
-              <div className='w-full '><h1 className=" mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.name}<small className='pd-2 text-xs text-gray-500 font-light'> {user.titlesmall}</small></h1></div>
+              <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.name}<small className='pd-2 text-xs text-gray-500 font-light'> {user.titlesmall}</small></h1></div>
               <div className='w-full '><h2 className="lg:mt-0 text-gray-600 dark:text-gray-400 text-base font-normal">{user.title}</h2></div>
             </div>
 
@@ -31,45 +31,45 @@ export default function Profile({ user }) {
               </button>
             </div>
           </div>
-          <div className="px-5 lg:px-5 md:px-10 py-3 lg:py-4 flex flex-row items-center justify-between border-t border-gray-300">
+          <div className="px-5 py-3 flex flex-row items-center border-t border-gray-300">
             <div className="flex items-center">
 
-              <div className="px-1 pt-4">
+              <div className="py-2 px-1">
                 <a href={'mailto:' + user.email} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Email</a>
               </div>
-              <div className="px-1 pt-4">
+              <div className="py-2 px-1">
                 <a href={'tel:' + user.phone} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Phone</a>
               </div>
-              <div className="px-1 pt-4">
+              <div className="py-2 px-1">
                 <a href={user.linkedin} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Linkedin</a>
               </div>
-              <div className="px-1 pt-4">
+              <div className="py-2 px-1">
                 <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Address</a>
               </div>
             </div>
-
-            <div className="flex pt-3 ">
-              <button aria-label="save" className="text-indigo-700 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
-                <svg className="feather feather-bookmark" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                </svg>
-              </button>
-              <button aria-label="share" className="text-indigo-700 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
-                <svg className="feather feather-share-2" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx={18} cy={5} r={3} />
-                  <circle cx={6} cy={12} r={3} />
-                  <circle cx={18} cy={19} r={3} />
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-                </svg>
-              </button>
-            </div>
+          </div>
+          <div className="px-5 py-3 flex flex-row border-t border-gray-300">
+          <button aria-label="save" className="text-indigo-700 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
+                  <svg className="feather feather-bookmark" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                  </svg>
+                </button>
+                <button aria-label="share" className="text-indigo-700 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
+                  <svg className="feather feather-share-2" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx={18} cy={5} r={3} />
+                    <circle cx={6} cy={12} r={3} />
+                    <circle cx={18} cy={19} r={3} />
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                  </svg>
+                </button>
           </div>
         </div>
         <div className="relative w-full h-96 lg:h-auto lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
           <Image className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.photo} alt="banner" />
         </div>
       </div>
+      
     </Layout>
   )
 
@@ -100,7 +100,7 @@ export async function getStaticProps({ params }) {
     ...user.data()
   }));
 
-  console.log(entriesData)
+  //console.log(entriesData)
   const user = entriesData.find(item => item.permalink == params.id)
 
   return {

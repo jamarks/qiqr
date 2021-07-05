@@ -22,13 +22,24 @@ export default function Home() {
   */
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users`)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/users`)
       const data = await response.json()
+
       return (data.entriesData)
     }
     const users = fetchData()
       .then(data => setData(data))
   }, []); // Or [] if effect doesn't need props or state
+
+
+
+  function handleClick(e, id) {
+
+    //console.log(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/qr/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/qr/${id}`)
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
 
   return (
     <div className='container'>
@@ -42,12 +53,15 @@ export default function Home() {
         get your own qr
         <br />
         <p>Some of other guests</p>
+
         {data && data.map((item) => (
-          <Link key={item.id} href={process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + item.permalink}>
-            <a>
-              {item.name}
-            </a>
-          </Link>
+          <div key={item.id} >
+            <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_VERCEL_URL}/u/${item.permalink}`}>
+              <a>
+                {item.name} - {item.companyname}
+              </a>
+            </Link>
+          </div>
         ))}
       </main>
 

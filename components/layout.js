@@ -10,7 +10,7 @@ export default function Layout({children,
  const router = useRouter()
 return (
 
- <>
+ <div>
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8"></meta>
@@ -34,12 +34,14 @@ return (
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
       </Head>
-      <main className='h-screen bg-gray-200 dark:bg-gray-900 flex justify-center py-12 px-2 sm:px-6'>
+      <main className='py-10 px-2 sm:px-6'>
         {children}
       </main>
-    </>
-
-
-
+      <footer className='text-xs text-gray-400 text-right px-2 sm:px-6'>
+        <Link href='/'>
+          <a>qrme</a>
+        </Link>
+      </footer>
+    </div>
 )
 }

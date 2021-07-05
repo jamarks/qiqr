@@ -1,1 +1,3 @@
-body{}
+body{
+ @apply bg-gray-200
+}
