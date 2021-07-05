@@ -39,13 +39,13 @@ export default async (req, res) => {
      //res.status(200).send(vCard.getFormattedString())
     }
     catch (e) {
-     res.status(400).end();
+     res.status(400).json(e.message);
     }
    }
   }
  }
  catch (e) {
-  res.status(400).end();
+  res.status(400).json(e.message);
  }
  //get as formatted string
  

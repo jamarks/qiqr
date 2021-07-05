@@ -19,11 +19,11 @@ export default async (req, res) => {
       //res.status(200).send({'content-type:',}})
      })
      .catch(err => {
-      console.error(err)
+      res.status(400).json(err.message);
      })
    }
   }
- } catch (e) {
-  res.status(400).end();
+ } catch (err) {
+  res.status(400).json(err.message);
  }
 }
