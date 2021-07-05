@@ -1,11 +1,12 @@
 import Layout from '../../components/layout'
 import Image from 'next/image'
+import Link from 'next/link'
 import db from '../../utils/db';
 
 //https://www.npmjs.com/package/vcards-js
 
-export default function Profile({ user }) {
-  //console.log(user)
+export default function Profile({ user,qrimage }) {
+  //console.log(qrimage)
   return (
     <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name}>
       <div className="flex flex-col-reverse lg:flex-row w-full bg-white dark:bg-gray-800 shadow rounded">
@@ -32,7 +33,7 @@ export default function Profile({ user }) {
             </div>
           </div>
           <div className="px-5 py-3 flex flex-row items-center border-t border-gray-300">
-            <div className="flex items-center">
+            <div className="flex items-center flex-wrap">
 
               <div className="py-2 px-1">
                 <a href={'mailto:' + user.email} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Email</a>
@@ -46,15 +47,20 @@ export default function Profile({ user }) {
               <div className="py-2 px-1">
                 <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Address</a>
               </div>
+              <div className="py-2 px-1">
+              <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${user.id}`}>
+                <a download className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">vCard</a>
+              </Link>
+              </div>
             </div>
           </div>
           <div className="px-5 py-3 flex flex-row border-t border-gray-300">
-          <button aria-label="save" className="text-indigo-700 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
+          <button aria-label="save" className="text-blue-900 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
                   <svg className="feather feather-bookmark" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                   </svg>
                 </button>
-                <button aria-label="share" className="text-indigo-700 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
+                <button aria-label="share" className="text-blue-900 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
                   <svg className="feather feather-share-2" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx={18} cy={5} r={3} />
                     <circle cx={6} cy={12} r={3} />
@@ -63,6 +69,15 @@ export default function Profile({ user }) {
                     <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
                   </svg>
                 </button>
+                <div className='px-5 py-4 mt-2 cursor-pointer'>
+                  <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/u/qr?name=${encodeURIComponent(user.name)}&image=${encodeURIComponent(qrimage)}`}>
+                    <a>
+                      <Image src="/images/QR_icon.svg" alt={user.name} height={26} width={26} />
+                    </a>
+                  </Link>
+                </div> 
+                
+                
           </div>
         </div>
         <div className="relative w-full h-96 lg:h-auto lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
@@ -100,12 +115,20 @@ export async function getStaticProps({ params }) {
     ...user.data()
   }));
 
+  
   //console.log(entriesData)
   const user = entriesData.find(item => item.permalink == params.id)
+  let qrimage = '';
+  const qr = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/qr/${user.id}`)
+  .then(response => response.json())
+  .then(data => qrimage = data.data);
+
+
+
 
   return {
     props: {
-      user: user
+      user: user,qrimage:qrimage
     }
   }
 }
