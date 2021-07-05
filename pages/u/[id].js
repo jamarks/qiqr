@@ -2,6 +2,7 @@ import Layout from '../../components/layout'
 import Image from 'next/image'
 import Link from 'next/link'
 import db from '../../utils/db';
+var QRCode = require('qrcode')
 
 //https://www.npmjs.com/package/vcards-js
 
@@ -119,12 +120,10 @@ export async function getStaticProps({ params }) {
   //console.log(entriesData)
   const user = entriesData.find(item => item.permalink == params.id)
   let qrimage = '';
-  const qr = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/qr/${user.id}`)
-  .then(response => response.json())
-  .then(data => qrimage = data.data);
-
-
-
+  //const qr = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/qr/${user.id}`)
+  //.then(response => response.json())
+  //.then(data => qrimage = data.data);
+  qrimage = await QRCode.toDataURL(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.permalink,{ errorCorrectionLevel: 'H' })
 
   return {
     props: {
