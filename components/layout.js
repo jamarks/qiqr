@@ -34,7 +34,7 @@ return (
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
       </Head>
-      <main className='py-10 px-2 sm:px-6'>
+      <main className='py-2 md:py-10 px-2 sm:px-6'>
         {children}
       </main>
       <footer className='text-xs text-gray-400 text-right px-2 sm:px-6'>
