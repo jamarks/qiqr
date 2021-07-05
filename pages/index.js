@@ -9,15 +9,26 @@ export default function Home() {
 
 
 
-  const [data, setData] = useState([{name: 'test'}]);
+  const [data, setData] = useState([{ id: 'test', name: 'test' }]);
 
-  useEffect(async () => {
+  /*useEffect(async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users`)
     const data = await response.json()
  
     setData(data.entriesData);
     console.log(data.entriesData)
   }, []);
+
+  */
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users`)
+      const data = await response.json()
+      return (data.entriesData)
+    }
+    const users = fetchData()
+      .then(data => setData(data))
+  }, []); // Or [] if effect doesn't need props or state
 
   return (
     <div className='container'>
@@ -29,7 +40,7 @@ export default function Home() {
 
       <main className=''>
         get your own qr
-        <br/>
+        <br />
         <p>Some of other guests</p>
         {data && data.map((item) => (
           <Link key={item.id} href={process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + item.permalink}>
