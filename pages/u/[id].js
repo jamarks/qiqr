@@ -24,7 +24,7 @@ export default function Profile({ user,qrimage,vCardString }) {
   //console.log(vCardString)
   return (
     <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name}>
-      <div className="flex flex-col-reverse lg:flex-row w-full bg-white dark:bg-gray-800 shadow rounded">
+      <div className="flex flex-col-reverse lg:flex-row w-5-12 md:w-8/12 md:mx-auto bg-white dark:bg-gray-800 shadow rounded">
         <div className="w-full lg:w-1/2">
           <div aria-label="card" className="px-5 md:py-3 py-8">
             <div className="flex justify-between items-center flex-col mb-3 ">
@@ -63,8 +63,7 @@ export default function Profile({ user,qrimage,vCardString }) {
                 <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Address</a>
               </div>
               <div className="py-2 px-1">
-                <span onClick={() => makeTextFile(vCardString)}>Test</span>
-              <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${user.id}`}>
+                              <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${user.id}`}>
                 <a download className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">vCard</a>
               </Link>
               </div>
@@ -96,7 +95,7 @@ export default function Profile({ user,qrimage,vCardString }) {
                 
           </div>
         </div>
-        <div className="relative w-full h-96 lg:h-auto lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
+        <div className="relative w-full h-96 md:h-100 lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
           <Image className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.photo} alt="banner" />
         </div>
       </div>

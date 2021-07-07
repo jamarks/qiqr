@@ -8,6 +8,9 @@ export default async function handler(req, res) {
     signatureVersion: 'v4',
   });
 
+  
+  //console.log(req.query.file)
+
   const s3 = new aws.S3();
   const post = await s3.createPresignedPost({
     Bucket: process.env.S3_UPLOAD_BUCKET,
