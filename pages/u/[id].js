@@ -3,11 +3,25 @@ import Image from 'next/image'
 import Link from 'next/link'
 import db from '../../utils/db';
 var QRCode = require('qrcode')
+var vCardsJS = require('vcards-js');
 
 //https://www.npmjs.com/package/vcards-js
+var makeTextFile = function( text ) {
+  var data = new Blob([text], {type: 'text/plain'});
 
-export default function Profile({ user,qrimage }) {
+  // If we are replacing a previously generated file we need to
+  // manually revoke the object URL to avoid memory leaks.
+  console.log(text)
+  var textFile = window.URL.createObjectURL(data);
+  console.log(textFile)
+
+  return textFile;
+};
+
+
+export default function Profile({ user,qrimage,vCardString }) {
   //console.log(qrimage)
+  //console.log(vCardString)
   return (
     <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name}>
       <div className="flex flex-col-reverse lg:flex-row w-full bg-white dark:bg-gray-800 shadow rounded">
@@ -49,6 +63,7 @@ export default function Profile({ user,qrimage }) {
                 <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Address</a>
               </div>
               <div className="py-2 px-1">
+                <span onClick={() => makeTextFile(vCardString)}>Test</span>
               <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${user.id}`}>
                 <a download className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">vCard</a>
               </Link>
@@ -117,17 +132,37 @@ export async function getStaticProps({ params }) {
   }));
 
   
-  //console.log(entriesData)
+  //****QR *******//
   const user = entriesData.find(item => item.permalink == params.id)
-  let qrimage = '';
-  //const qr = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/qr/${user.id}`)
-  //.then(response => response.json())
-  //.then(data => qrimage = data.data);
-  qrimage = await QRCode.toDataURL(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.permalink,{ errorCorrectionLevel: 'H' })
+  let qrimage = await QRCode.toDataURL(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.permalink,{ errorCorrectionLevel: 'H' })
+  //****QR *******//
+
+
+  //**** VCARD *******//
+  var vCard = vCardsJS();
+
+  let names =  user.name.split(" ");
+     //set properties
+  vCard.formattedName = user.name
+  vCard.firstName = names[0];
+  //vCard.middleName = 'J';
+  vCard.lastName = names[names.length-1];
+  vCard.organization = user.companyname
+  vCard.photo.attachFromUrl(user.photo, 'JPEG');
+  vCard.workPhone = user.phone
+  //vCard.birthday = new Date(1985, 0, 1);
+  vCard.title = user.title;
+  vCard.url = user.linkedin
+  vCard.note = user.aboutme;
+
+  let vCardString = vCard.getFormattedString()
+
+  //**** VCARD *******//
+
 
   return {
     props: {
-      user: user,qrimage:qrimage
+      user: user,qrimage:qrimage,vCardString:vCardString
     }
   }
 }

@@ -31,16 +31,6 @@ export default function Home() {
       .then(data => setData(data))
   }, []); // Or [] if effect doesn't need props or state
 
-
-
-  function handleClick(e, id) {
-
-    //console.log(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/qr/${id}`)
-    fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/qr/${id}`)
-      .then(response => response.json())
-      .then(data => console.log(data));
-  }
-
   return (
     <div className='container'>
       <Head>
