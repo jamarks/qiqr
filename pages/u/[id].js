@@ -7,8 +7,9 @@ var QRCode = require('qrcode')
 async function vCard(e,id){
   e.preventDefault()
   //console.log(id)
-
-  fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${encodeURIComponent(id)}`)
+  const urlFetch = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${encodeURIComponent(id)}`
+  //console.log(urlFetch)
+  fetch(urlFetch)
   .then(res=>res.json())
   .then(msg=>{
     if(msg.error)

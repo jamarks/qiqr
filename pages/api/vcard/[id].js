@@ -53,7 +53,7 @@ export default async (req, res) => {
      //console.log(filename)  
      const response = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/upload-url?file=${filename}`);
      //console.log(res)
-     const { url, fields } = await response .json();
+     const { url, fields } = await response.json();
      //console.log(url)
      //console.log(fields)
 
@@ -71,7 +71,7 @@ export default async (req, res) => {
 
      if (upload.ok) {
        
-      console.log(process.env.NEXT_PUBLIC_S3_URL + '/' + filename)
+      //console.log(process.env.NEXT_PUBLIC_S3_URL + '/' + filename)
       //console.log('Uploaded successfully!');
       res.status(200).json({imageUrl:process.env.NEXT_PUBLIC_S3_URL + '/' + filename});
      }
