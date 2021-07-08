@@ -4,23 +4,36 @@ import Link from 'next/link'
 import db from '../../utils/db';
 var QRCode = require('qrcode')
 
-async function vCard(e,id){
+async function vCard(e, id) {
   e.preventDefault()
   //console.log(id)
   const urlFetch = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${encodeURIComponent(id)}`
   //console.log(urlFetch)
   fetch(urlFetch)
-  .then(res=>res.json())
-  .then(msg=>{
-    if(msg.error)
-      alert('Error creating file')
-    else if(msg.imageUrl)
-      window.location.href = msg.imageUrl;
-  })
+    .then(res => res.json())
+    .then(msg => {
+      if (msg.error)
+        alert('Error creating file')
+      else if (msg.imageUrl)
+        window.location.href = msg.imageUrl;
+    })
 
 }
 
-export default function Profile({ user,qrimage }) {
+async function Share(title, url) {
+  try {
+
+    if (navigator.canShare) {
+      await navigator.share({ title: title, url: url });
+    }
+
+  } catch (err) {
+    console.error(err.message);
+  }
+
+};
+
+export default function Profile({ user, qrimage }) {
   //console.log(qrimage)
   //console.log(vCardString)
   return (
@@ -65,41 +78,41 @@ export default function Profile({ user,qrimage }) {
                 <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Map</a>
               </div>
               <div className="py-2 px-1">
-                <a onClick={(e)=> vCard(e,user.id)} className="cursor-pointer py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">vCard</a>
+                <a onClick={(e) => vCard(e, user.id)} className="cursor-pointer py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">vCard</a>
               </div>
             </div>
           </div>
           <div className="px-5 py-3 flex flex-row border-t border-gray-300">
-          <button aria-label="save" className="text-blue-900 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
-                  <svg className="feather feather-bookmark" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                  </svg>
-                </button>
-                <button aria-label="share" className="text-blue-900 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
-                  <svg className="feather feather-share-2" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx={18} cy={5} r={3} />
-                    <circle cx={6} cy={12} r={3} />
-                    <circle cx={18} cy={19} r={3} />
-                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-                  </svg>
-                </button>
-                <div className='px-5 py-4 mt-2 cursor-pointer'>
-                  <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/u/qr?name=${encodeURIComponent(user.name)}&image=${encodeURIComponent(qrimage)}`}>
-                    <a>
-                      <Image src="/images/QR_icon.svg" alt={user.name} height={26} width={26} />
-                    </a>
-                  </Link>
-                </div> 
-                
-                
+            <button aria-label="save" className="text-blue-900 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
+              <svg className="feather feather-bookmark" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+              </svg>
+            </button>
+            <button onClick={(e) => Share(user.name, process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u' + user.id)} aria-label="share" className="md:hidden mr-5 text-blue-900 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
+              <svg className="feather feather-share-2" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx={18} cy={5} r={3} />
+                <circle cx={6} cy={12} r={3} />
+                <circle cx={18} cy={19} r={3} />
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              </svg>
+            </button>
+            <div className='py-4 mt-2 cursor-pointer'>
+              <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/u/qr?name=${encodeURIComponent(user.name)}&image=${encodeURIComponent(qrimage)}`}>
+                <a>
+                  <Image src="/images/QR_icon.svg" alt={user.name} height={26} width={26} />
+                </a>
+              </Link>
+            </div>
+
+
           </div>
         </div>
         <div className="relative w-full h-96 lg:h-100 lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
           <Image className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.photo} alt="banner" />
         </div>
       </div>
-      
+
     </Layout>
   )
 
@@ -114,7 +127,7 @@ export async function getStaticPaths() {
     ...user.data()
   }));
 
-  
+
   const paths = entriesData.map((item) => ({
     params: { id: item.id }
   }))
@@ -124,23 +137,23 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const entries = await db.collection('user').get();
-  
+
   const entriesData = entries.docs.map(user => ({
     id: user.id,
     ...user.data()
   }));
 
-  
+
   //****QR *******//
   const user = entriesData.find(item => item.id == params.id)
-  let qrimage = await QRCode.toDataURL(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id,{ errorCorrectionLevel: 'H' })
+  let qrimage = await QRCode.toDataURL(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id, { errorCorrectionLevel: 'H' })
   // tengo la imagen en base64 en el archivo
   //****QR *******//
-  
+
 
   return {
     props: {
-      user: user,qrimage:qrimage
+      user: user, qrimage: qrimage
     }
   }
 }
