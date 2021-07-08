@@ -13,9 +13,10 @@
     ]
   }
   ```
-
+*/
 export default function Admin() {
- return (
+ return (<></>
+   /*
   <>
    <div className='container w-10/12 mx-auto py-6'>
     <div>
@@ -402,6 +403,6 @@ export default function Admin() {
     </div>
    </div>
   </>
+  */
  )
 }
-*/
