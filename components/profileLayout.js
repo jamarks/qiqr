@@ -3,14 +3,12 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 
-export default function Layout({children,
- title = 'EntrenaYa - Gimnasios',
- description = 'Gimnasios en Capital Federal',
- keyworkds = 'gimnasios, pilates, crossfit'}){
- const router = useRouter()
-return (
+export default function Layout({ children,
+  title = '', description = '', keyworkds = '', currentURL='',previewImage='',siteName=''}) {
+  const router = useRouter()
+  return (
 
- <div>
+    <div>
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8"></meta>
@@ -18,7 +16,11 @@ return (
         <meta name='keyworkds' content={keyworkds}></meta>
         <meta property="og:title" content={title} key="ogtitle" />
         <meta property="og:description" content={description} key="ogdesc" />
+        <meta property="og:url" content={currentURL} key="ogurl" />
+        <meta property="og:image" content={previewImage} key="ogimage" />
+        <meta property="og:site_name" content={siteName} key="ogsitename" />
         
+
         <meta name="robots" content="noindex"></meta>
 
         {/* Twitter 
@@ -45,5 +47,5 @@ return (
         </Link>
       </footer>
     </div>
-)
+  )
 }
