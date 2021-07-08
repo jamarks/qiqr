@@ -42,6 +42,13 @@ export default async (req, res) => {
      vCard.note = doc.data().aboutme;
 
 
+     vCard.workAddress.street = doc.data().workstreet;
+     vCard.workAddress.postalCode = doc.data().workpostalcode;
+     vCard.workAddress.city = doc.data().workcity;
+     vCard.workAddress.countryRegion = doc.data().workcountry;
+     
+
+
      //const fileNameDownload = './public/vcards/' + doc.data().permalink + '.vcf'
      //const fileName = doc.data().permalink + '.vcf'
 

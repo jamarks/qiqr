@@ -7,11 +7,14 @@ var QRCode = require('qrcode')
 async function vCard(e, id) {
   e.preventDefault()
   //console.log(id)
+  //console.log(NProgress);
+  //NProgress.start();
   const urlFetch = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${encodeURIComponent(id)}`
   //console.log(urlFetch)
   fetch(urlFetch)
     .then(res => res.json())
     .then(msg => {
+      //NProgress.done();
       if (msg.error)
         alert('Error creating file')
       else if (msg.imageUrl)
