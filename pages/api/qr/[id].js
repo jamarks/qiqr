@@ -13,7 +13,7 @@ export default async (req, res) => {
     res.status(404).end();
    } else {
     //console.log(process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + doc.data().permalink)
-    QRCode.toDataURL(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + doc.data().permalink)
+    QRCode.toDataURL(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + doc.data().id)
      .then(url => {
       res.status(200).json({data:url})
       //res.status(200).send({'content-type:',}})

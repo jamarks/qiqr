@@ -7,30 +7,6 @@ import React, { useState, useEffect } from 'react';
 
 export default function Home() {
 
-
-
-  const [data, setData] = useState([{ id: 'test', name: 'test' }]);
-
-  /*useEffect(async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/users`)
-    const data = await response.json()
- 
-    setData(data.entriesData);
-    console.log(data.entriesData)
-  }, []);
-
-  */
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/users`)
-      const data = await response.json()
-
-      return (data.entriesData)
-    }
-    const users = fetchData()
-      .then(data => setData(data))
-  }, []); // Or [] if effect doesn't need props or state
-
   return (
     <div className='container'>
       <Head>
@@ -44,15 +20,7 @@ export default function Home() {
         <br />
         <p>Some of other guests</p>
 
-        {data && data.map((item) => (
-          <div key={item.id} >
-            <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_VERCEL_URL}/u/${item.permalink}`}>
-              <a>
-                {item.name} - {item.companyname}
-              </a>
-            </Link>
-          </div>
-        ))}
+        
       </main>
 
       <footer className=''>

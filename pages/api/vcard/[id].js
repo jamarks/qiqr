@@ -10,7 +10,7 @@ var fs = require('fs');
 
 export default async (req, res) => {
  const { id } = req.query;
-
+  
  var vCard = vCardsJS();
 
 
@@ -22,7 +22,8 @@ export default async (req, res) => {
   if (req.method === 'GET') {
    const doc = await db.collection('user').doc(id).get();
    if (!doc.exists) {
-    res.status(404).end();
+    res.status(404).json({error:'User not found'});
+
    } else {
 
     try {
@@ -47,14 +48,14 @@ export default async (req, res) => {
      //vCard.saveToFile(fileNameDownload);
 
 
-
-     const filename = encodeURIComponent(doc.data().permalink + '.vcf')
+      
+     const filename = encodeURIComponent(id + '.vcf')
      //console.log(filename)  
      const response = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/upload-url?file=${filename}`);
      //console.log(res)
      const { url, fields } = await response .json();
      //console.log(url)
-     console.log(fields)
+     //console.log(fields)
 
      const svgBuffer = Buffer.from(vCard.getFormattedString(), 'utf8');
      const formData = new FormData();
@@ -65,18 +66,17 @@ export default async (req, res) => {
 
      
      formData.append('file', svgBuffer, filename);
-     
-
      const upload = await fetch(url, { method: 'POST', body: formData });
-     console.log(upload)
+     //console.log(upload)
 
      if (upload.ok) {
+       
       console.log(process.env.NEXT_PUBLIC_S3_URL + '/' + filename)
-      console.log('Uploaded successfully!');
-      res.status(200).json();
+      //console.log('Uploaded successfully!');
+      res.status(200).json({imageUrl:process.env.NEXT_PUBLIC_S3_URL + '/' + filename});
      }
      else
-      res.status(400).json(upload);
+     res.status(404).json({error:'Error uploading file'});
     }
     catch (e) {
      res.status(400).json(e.message);

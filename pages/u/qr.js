@@ -8,10 +8,9 @@ export default function Qrviewer({qrimage}){
 
  return(
  <>
- <div className='container w-full mx-auto py-10 px-10'>
-  <div className='w-full mx-auto mb-2 text-2xl'>{name}</div>
+ <div className='container w-full md:w-4/12 mx-auto py-10 px-5 md:py-10 md:px-10'>
   <div>
-   <img alt='qr' src={image} width='100%' height='100%'></img>
+   <img alt='qr' src={image} className='w-full h-full'></img>
   </div>
  </div>
  

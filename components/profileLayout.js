@@ -18,6 +18,8 @@ return (
         <meta name='keyworkds' content={keyworkds}></meta>
         <meta property="og:title" content={title} key="ogtitle" />
         <meta property="og:description" content={description} key="ogdesc" />
+        
+        <meta name="robots" content="noindex"></meta>
 
         {/* Twitter 
         <meta name="twitter:card" content="summary" key="twcard" />
