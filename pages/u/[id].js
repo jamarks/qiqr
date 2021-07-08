@@ -33,18 +33,19 @@ export default function Profile({ user,qrimage }) {
               <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.name}<small className='pd-2 text-xs text-gray-500 font-light'> {user.titlesmall}</small></h1></div>
               <div className='w-full '><h2 className="lg:mt-0 text-gray-600 dark:text-gray-400 text-base font-normal">{user.title}</h2></div>
             </div>
-
-            <p className="mb-6 font-normal text-gray-600 dark:text-gray-400 text-sm tracking-normal w-11/12 lg:w-9/12">{user.aboutme}</p>
-            <div className="flex lg:items-center items-start flex-col lg:flex-row">
-              <button className="text-gray-600 dark:text-gray-400 focus:outline-none hover:text-indigo-700 focus:text-indigo-700 mt-4 lg:mt-0 ml-0 lg:ml-0 flex items-end">
-                <span className="mr-1 ">
+            {user.aboutme &&
+              <p className="b-3 lg:mb-6 font-normal text-gray-600 dark:text-gray-400 text-sm tracking-normal w-11/12 lg:w-9/12">{user.aboutme}</p>
+            }
+            <div className="flex items-start flex-col lg:flex-row">
+              <button className="text-gray-600 dark:text-gray-400 focus:outline-none hover:text-indigo-700 focus:text-indigo-700 mt-4 lg:mt-0 ml-0 flex">
+                <span className="mr-2 mt-1 sm:mt-0">
                   <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-map-pin" width={20} height={20} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" />
                     <circle cx={12} cy={11} r={3} />
                     <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1 -2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" />
                   </svg>
                 </span>
-                <p className=" text-sm tracking-normal font-normal text-center">{user.location}</p>
+                <p className=" text-sm tracking-normal font-normal text-left">{user.location}</p>
               </button>
             </div>
           </div>
