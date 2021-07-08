@@ -2,7 +2,6 @@ import Layout from '../../components/profileLayout'
 import Image from 'next/image'
 import Link from 'next/link'
 import db from '../../utils/db';
-import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 var QRCode = require('qrcode')
 
 async function vCard(e, id) {
@@ -22,11 +21,11 @@ async function vCard(e, id) {
 }
 
 async function Share(title, url) {
-  consol
+  console.log(title, url)
   try {
 
     if (navigator.canShare) {
-      await navigator.share({ title: title, text: 'This if ' + title + ' card' , url: url });
+      await navigator.share({ title: title, text: 'Here is ' + title + ' card' , url: url });
     }
 
   } catch (err) {
