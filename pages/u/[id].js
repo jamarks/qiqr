@@ -2,6 +2,7 @@ import Layout from '../../components/profileLayout'
 import Image from 'next/image'
 import Link from 'next/link'
 import db from '../../utils/db';
+import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 var QRCode = require('qrcode')
 
 async function vCard(e, id) {
@@ -21,10 +22,11 @@ async function vCard(e, id) {
 }
 
 async function Share(title, url) {
+  consol
   try {
 
     if (navigator.canShare) {
-      await navigator.share({ title: title, url: url });
+      await navigator.share({ title: title, text: 'This if ' + title + ' card' , url: url });
     }
 
   } catch (err) {
@@ -88,7 +90,7 @@ export default function Profile({ user, qrimage }) {
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
               </svg>
             </button>
-            <button onClick={(e) => Share(user.name, process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u' + user.id)} aria-label="share" className="md:hidden mr-5 text-blue-900 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
+            <button onClick={(e) => Share(user.name, process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id)} aria-label="share" className="md:hidden mr-5 text-blue-900 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
               <svg className="feather feather-share-2" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx={18} cy={5} r={3} />
                 <circle cx={6} cy={12} r={3} />
