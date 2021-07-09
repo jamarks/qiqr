@@ -2,33 +2,21 @@ import Layout from '../../components/profileLayout'
 import Image from 'next/image'
 import Link from 'next/link'
 import db from '../../utils/db';
+import Loader from '../../components/loader'
+
+import { useEffect, useState } from 'react';
 var QRCode = require('qrcode')
 
-async function vCard(e, id) {
-  e.preventDefault()
-  //console.log(id)
-  //console.log(NProgress);
-  //NProgress.start();
-  const urlFetch = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${encodeURIComponent(id)}`
-  //console.log(urlFetch)
-  fetch(urlFetch)
-    .then(res => res.json())
-    .then(msg => {
-      //NProgress.done();
-      if (msg.error)
-        alert('Error creating file')
-      else if (msg.imageUrl)
-        window.location.href = msg.imageUrl;
-    })
 
-}
+
+
 
 async function Share(title, url) {
   console.log(title, url)
   try {
 
     if (navigator.canShare) {
-      await navigator.share({ title: title, text: 'Here is ' + title + ' card' , url: url });
+      await navigator.share({ title: title, text: 'Here is ' + title + ' card', url: url });
     }
 
   } catch (err) {
@@ -38,12 +26,34 @@ async function Share(title, url) {
 };
 
 export default function Profile({ user, qrimage }) {
+
+  const [loader, setLoader] = useState(false)
+
+  function vCard(e, id) {
+    e.preventDefault()
+    setLoader(true)
+    const urlFetch = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/vcard/${encodeURIComponent(id)}`
+
+    fetch(urlFetch)
+      .then(res => res.json())
+      .then(msg => {
+
+        if (msg.error)
+          alert('Error creating file')
+        else if (msg.imageUrl){
+          window.location.href = msg.imageUrl;
+          setTimeout(()=>{setLoader(false)},1000)
+        }
+      })
+
+  }
+
   //console.log(qrimage)
   //console.log(vCardString)
   const currentUrl = process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id
 
   return (
-    <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name}  currentURL={currentUrl} previewImage={user.photo} siteName='QRme'>
+    <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name} currentURL={currentUrl} previewImage={user.photo} siteName='QRme'>
       <div className="flex flex-col-reverse lg:flex-row w-5-12 md:w-8/12 md:mx-auto bg-white dark:bg-gray-800 shadow rounded">
         <div className="w-full lg:w-1/2">
           <div aria-label="card" className="px-5 md:py-3 py-8">
@@ -84,7 +94,15 @@ export default function Profile({ user, qrimage }) {
                 <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Map</a>
               </div>
               <div className="py-2 px-1">
-                <a onClick={(e) => vCard(e, user.id)} className="cursor-pointer py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">vCard</a>
+
+                {loader &&
+                  <Loader></Loader>
+                }
+                
+                  <a onClick={(e) => vCard(e, user.id)} className="cursor-pointer py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">vCard</a>
+                
+
+
               </div>
             </div>
           </div>
