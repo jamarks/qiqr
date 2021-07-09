@@ -51,7 +51,7 @@ export default function Profile({ user, qrimage }) {
   //console.log(qrimage)
   //console.log(vCardString)
   const currentUrl = process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id
-
+  console.log(user)
   return (
     <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name} currentURL={currentUrl} previewImage={user.photo} siteName='QRme'>
       <div className="flex flex-col-reverse lg:flex-row w-5-12 md:w-8/12 md:mx-auto bg-white dark:bg-gray-800 shadow rounded">
@@ -59,7 +59,7 @@ export default function Profile({ user, qrimage }) {
           <div aria-label="card" className="px-5 md:py-3 py-8">
             <div className="flex justify-between items-center flex-col mb-3 ">
               <div className='w-full '><h4 className="text-base text-blue-900 dark:text-indigo-600 tracking-normal leading-4">{user.companyname}</h4></div>
-              <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.name}<small className='pd-2 text-xs text-gray-500 font-light'> {user.titlesmall}</small></h1></div>
+              <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.name}<small className='pl-1 text-xs text-gray-500 font-light'> {user.titlesmall}</small></h1></div>
               <div className='w-full '><h2 className="lg:mt-0 text-gray-600 dark:text-gray-400 text-base font-normal">{user.title}</h2></div>
             </div>
             {user.aboutme &&
@@ -106,7 +106,7 @@ export default function Profile({ user, qrimage }) {
               </div>
             </div>
           </div>
-          <div className="px-5 py-3 flex flex-row border-t border-gray-300">
+          <div className="px-5 py-1 flex flex-row border-t border-gray-300">
             <button aria-label="save" className="text-blue-900 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
               <svg className="feather feather-bookmark" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />

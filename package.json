@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/firebase-adapter": "^0.1.2",
     "aws-sdk": "^2.939.0",
     "firebase": "^8.7.0",
     "firebase-admin": "^9.10.0",
     "form-data": "^4.0.0",
     "next": "11.0.1",
+    "next-auth": "^3.27.3",
     "nextjs-progressbar": "^0.0.11",
     "nprogress": "^0.2.0",
     "qrcode": "^1.4.4",
