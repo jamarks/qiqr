@@ -12,7 +12,7 @@ var QRCode = require('qrcode')
 
 
 async function Share(title, url) {
-  console.log(title, url)
+  //console.log(title, url)
   try {
 
     if (navigator.canShare) {
@@ -51,7 +51,7 @@ export default function Profile({ user, qrimage }) {
   //console.log(qrimage)
   //console.log(vCardString)
   const currentUrl = process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id
-  console.log(user)
+  //console.log(user)
   return (
     <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name} currentURL={currentUrl} previewImage={user.photo} siteName='QRme'>
       <div className="flex flex-col-reverse lg:flex-row w-5-12 md:w-8/12 md:mx-auto bg-white dark:bg-gray-800 shadow rounded">
