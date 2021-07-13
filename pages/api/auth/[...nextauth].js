@@ -7,13 +7,13 @@ import "firebase/firestore"
 
 
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_APP_API_KEY,
-  authDomain: process.env.FIREBASE_APP_API_AUTHDOMAIN,
-  projectId: process.env.FIREBASE_APP_API_PROJECTID,
-  storageBucket: process.env.FIREBASE_APP_API_STORAGEBUCKET,
-  messagingSenderId: process.env.FIREBASE_APP_API_SENDERID,
-  appId: process.env.FIREBASE_APP_API_APPID,
-  measurementId: process.env.FIREBASE_APP_API_MEASUREMENTID
+  apiKey: "AIzaSyA3YA2qG8PdhjOPrIbEZHrDv76s0PEMJKw",
+  authDomain: "qrme-65ff2.firebaseapp.com",
+  projectId: "qrme-65ff2",
+  storageBucket: "qrme-65ff2.appspot.com",
+  messagingSenderId: "241124779446",
+  appId: "1:241124779446:web:7ca861102426b51ee10d17",
+  measurementId: "G-ZK1E5GP878"
 };
 
 const firestore = (
