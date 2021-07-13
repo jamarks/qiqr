@@ -23,24 +23,29 @@ export default async (req, res) => {
       } else {
 
         try {
+          console.log(doc.data())
 
           const filename = encodeURIComponent(id + '.vcf')
 
-          let names = doc.data().name.split(" ");
-          //set properties
-          vCard.formattedName = doc.data().name
+          let names = doc.data().profileName.split(" ");
+          
+          vCard.formattedName = doc.data().profileName
           vCard.firstName = names[0];
-          //vCard.middleName = 'J';
+          
+          if((names.length - 2) > 0 )
+            vCard.middleName = names[1];
+
           vCard.lastName = names[names.length - 1];
-          vCard.organization = doc.data().companyname
+          vCard.organization = doc.data().profileCompanyName
           // ***************** IMAGE *****************
-          if (doc.data().photo) {
+          
+          if (doc.data().profilePhoto) {
             const imageFileType = 'image/jpeg'
-            vCard.photo.attachFromUrl(doc.data().photo, imageFileType);
-            vCard.logo.attachFromUrl(doc.data().photo, imageFileType);
+            vCard.photo.attachFromUrl(doc.data().profilePhoto, imageFileType);
+            vCard.logo.attachFromUrl(doc.data().profilePhoto, imageFileType);
             //vCard.photo.embedFromFile(doc.data().photo)
 
-            imageToBase64(doc.data().photo) // Image URL
+            imageToBase64(doc.data().profilePhoto) // Image URL
               .then(
                 (response) => {
                   //console.log(response)
@@ -53,35 +58,29 @@ export default async (req, res) => {
           // ***************** !IMAGE *****************
           vCard.source = process.env.NEXT_PUBLIC_S3_URL + '/' + filename;
 
-          vCard.workPhone = doc.data().phone
+          vCard.workPhone = doc.data().profilePhone
           //vCard.birthday = new Date(1985, 0, 1);
-          vCard.title = doc.data().title;
-          vCard.url = doc.data().linkedin
-          vCard.note = doc.data().aboutme;
+          vCard.title = doc.data().profileTitle + '-' + doc.data().profileSubTitle;
+          vCard.url = doc.data().profileLinkedin
+          vCard.note = doc.data().profileAboutMe;
+          vCard.role = doc.data().profileTitle;
+          vCard.workUrl = doc.data().profileWebsite;
+          
+          // WorkAddress
+          vCard.workAddress.label = 'Work Address';
+          vCard.workAddress.street = doc.data().profileStreet;
+          vCard.workAddress.postalCode = doc.data().profileZip;
+          vCard.workAddress.city = doc.data().profileCity;
+          vCard.workAddress.countryRegion = doc.data().profileCountry;
 
+          vCard.socialUrls['linkedIn'] = doc.data().profileLinkedin;
+          vCard.version = '3.0';
 
-          vCard.workAddress.street = doc.data().workstreet;
-          vCard.workAddress.postalCode = doc.data().workpostalcode;
-          vCard.workAddress.city = doc.data().workcity;
-          vCard.workAddress.countryRegion = doc.data().workcountry;
-
-
-
-          //const fileNameDownload = './public/vcards/' + doc.data().permalink + '.vcf'
-          //const fileName = doc.data().permalink + '.vcf'
-
-          //vCard.saveToFile(fileNameDownload);
-
-
-
-
-          //console.log(filename)  
           const response = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/upload-url?file=${filename}`);
-          //console.log(res)
-          const { url, fields } = await response.json();
-          //console.log(url)
-          //console.log(fields)
 
+          const { url, fields } = await response.json();
+          
+          
           const svgBuffer = Buffer.from(vCard.getFormattedString(), 'utf8');
           const formData = new FormData();
 

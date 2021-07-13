@@ -51,19 +51,19 @@ export default function Profile({ user, qrimage }) {
   //console.log(qrimage)
   //console.log(vCardString)
   const currentUrl = process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id
-  //console.log(user)
+//  console.log(user)
   return (
-    <Layout title={user.name + ' | ' + user.companyname} description={user.aboutme} keyworkds={user.name} currentURL={currentUrl} previewImage={user.photo} siteName='QRme'>
+    <Layout title={user.profileName + ' | ' + user.profileCompanyName} description={user.profileAboutMe} keyworkds={user.profileName} currentURL={currentUrl} previewImage={user.profilePhoto} siteName='QRme'>
       <div className="flex flex-col-reverse lg:flex-row w-5-12 md:w-8/12 md:mx-auto bg-white dark:bg-gray-800 shadow rounded">
         <div className="w-full lg:w-1/2">
           <div aria-label="card" className="px-5 md:py-3 py-8">
             <div className="flex justify-between items-center flex-col mb-3 ">
-              <div className='w-full '><h4 className="text-base text-blue-900 dark:text-indigo-600 tracking-normal leading-4">{user.companyname}</h4></div>
-              <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.name}<small className='pl-1 text-xs text-gray-500 font-light'> {user.titlesmall}</small></h1></div>
-              <div className='w-full '><h2 className="lg:mt-0 text-gray-600 dark:text-gray-400 text-base font-normal">{user.title}</h2></div>
+              <div className='w-full '><h4 className="text-base text-blue-900 dark:text-indigo-600 tracking-normal leading-4">{user.profileCompanyName}</h4></div>
+              <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.profileName}<small className='pl-1 text-xs text-gray-500 font-light'> {user.profileSubTitle}</small></h1></div>
+              <div className='w-full '><h2 className="lg:mt-0 text-gray-600 dark:text-gray-400 text-base font-normal">{user.profileTitle}</h2></div>
             </div>
-            {user.aboutme &&
-              <p className="b-3 lg:mb-6 font-normal text-gray-600 dark:text-gray-400 text-sm tracking-normal w-11/12 lg:w-9/12">{user.aboutme}</p>
+            {user.profileAboutMe &&
+              <p className="b-3 lg:mb-6 font-normal text-gray-600 dark:text-gray-400 text-sm tracking-normal w-11/12 lg:w-9/12">{user.profileAboutMe}</p>
             }
             <div className="flex items-start flex-col lg:flex-row">
               <button className="text-gray-600 dark:text-gray-400 focus:outline-none hover:text-indigo-700 focus:text-indigo-700 mt-4 lg:mt-0 ml-0 flex">
@@ -74,7 +74,7 @@ export default function Profile({ user, qrimage }) {
                     <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1 -2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" />
                   </svg>
                 </span>
-                <p className=" text-sm tracking-normal font-normal text-left">{user.location}</p>
+                <p className=" text-sm tracking-normal font-normal text-left">{user.profileLocation}</p>
               </button>
             </div>
           </div>
@@ -82,16 +82,16 @@ export default function Profile({ user, qrimage }) {
             <div className="flex items-center flex-wrap">
 
               <div className="py-2 px-1">
-                <a href={'mailto:' + user.email} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Email</a>
+                <a href={'mailto:' + user.profileEmail} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Email</a>
               </div>
               <div className="py-2 px-1">
-                <a href={'tel:' + user.phone} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Phone</a>
+                <a href={'tel:' + user.profilePhone} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Phone</a>
               </div>
               <div className="py-2 px-1">
-                <a href={user.linkedin} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Linkedin</a>
+                <a href={user.profileLinkedin} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Linkedin</a>
               </div>
               <div className="py-2 px-1">
-                <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.address)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Map</a>
+                <a href={'http://maps.google.com/?q=' + encodeURIComponent(user.profileAddressMap)} className="py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">Map</a>
               </div>
               <div className="py-2 px-1">
 
@@ -112,7 +112,7 @@ export default function Profile({ user, qrimage }) {
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
               </svg>
             </button>
-            <button onClick={(e) => Share(user.name, currentUrl)} aria-label="share" className="md:hidden mr-5 text-blue-900 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
+            <button onClick={(e) => Share(user.profileName, currentUrl)} aria-label="share" className="md:hidden mr-5 text-blue-900 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
               <svg className="feather feather-share-2" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx={18} cy={5} r={3} />
                 <circle cx={6} cy={12} r={3} />
@@ -122,9 +122,9 @@ export default function Profile({ user, qrimage }) {
               </svg>
             </button>
             <div className='py-4 mt-2 cursor-pointer'>
-              <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/u/qr?name=${encodeURIComponent(user.name)}&image=${encodeURIComponent(qrimage)}`}>
+              <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/u/qr?name=${encodeURIComponent(user.profileName)}&image=${encodeURIComponent(qrimage)}`}>
                 <a>
-                  <Image src="/images/QR_icon.svg" alt={user.name} height={26} width={26} />
+                  <Image src="/images/QR_icon.svg" alt={user.profileName} height={26} width={26} />
                 </a>
               </Link>
             </div>
@@ -133,7 +133,7 @@ export default function Profile({ user, qrimage }) {
           </div>
         </div>
         <div className="relative w-full h-96 lg:h-100 lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
-          <Image className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.photo} alt="banner" />
+          <Image className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.profilePhoto} alt="banner" />
         </div>
       </div>
 
@@ -178,6 +178,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       user: user, qrimage: qrimage
-    }
+    },
+    revalidate: 10, // In seconds
   }
 }

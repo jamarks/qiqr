@@ -1,26 +1,19 @@
-import { data } from 'autoprefixer'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
+
+import Layout from '../components/layout'
 import { signIn, signOut, useSession } from 'next-auth/client'
+
 
 export default function Home() {
   const [session, loading] = useSession()
 
-
   return (
-    <div className='container'>
-      <Head>
-        <title>qrme</title>
-        <meta name="description" content="qrme" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <Layout>
       <main className='container mx-auto w-full md:w-8/12 py-6 '>
-        {!session && <>
-          <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => signIn()}>Sign in</button>
-        </>}
+        
         {session && <>
           {session.user.image && <span style={{ backgroundImage: `url(${session.user.image})` }} className='' />}
           <div className='flex flex-col w-full'>
@@ -45,10 +38,6 @@ export default function Home() {
 
         </>}
       </main>
-
-      <footer className='py-6 container mx-auto w-full md:w-8/12'>
-        <small>qrmetheapp@gmail.com</small>
-      </footer>
-    </div>
+    </Layout>
   )
 }

@@ -1,5 +1,25 @@
 import NextAuth from "next-auth"
 import Providers from "next-auth/providers"
+import { FirebaseAdapter } from "@next-auth/firebase-adapter"
+
+import firebase from "firebase/app"
+import "firebase/firestore"
+
+
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_APP_API_KEY,
+  authDomain: process.env.FIREBASE_APP_API_AUTHDOMAIN,
+  projectId: process.env.FIREBASE_APP_API_PROJECTID,
+  storageBucket: process.env.FIREBASE_APP_API_STORAGEBUCKET,
+  messagingSenderId: process.env.FIREBASE_APP_API_SENDERID,
+  appId: process.env.FIREBASE_APP_API_APPID,
+  measurementId: process.env.FIREBASE_APP_API_MEASUREMENTID
+};
+
+const firestore = (
+  firebase.apps[0] ?? firebase.initializeApp(firebaseConfig)
+).firestore()
+
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -19,8 +39,8 @@ export default NextAuth({
       clientSecret: process.env.TWITTER_CLIENT_SECRET
     })
   ],
-  database: process.env.POSTGRES_URL,
-  //adapter: FirebaseAdapter(firestore),
+  //database: process.env.POSTGRES_URL,
+  adapter: FirebaseAdapter(firestore),
   secret: process.env.SECRET,
 
   session: {
@@ -57,22 +77,20 @@ export default NextAuth({
   // The routes shown here are the default URLs that will be used when a custom
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
-  //pages: {
+  pages: {
+    newUser: '/admin',
     // signIn: '/auth/signin',  // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
     // newUser: null // If set, new users will be directed here on first sign in
-  //},
+  },
 
   // Callbacks are asynchronous functions you can use to control what happens
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
      async signIn(user, account, profile) { 
-      console.log("user" + user) 
-      console.log("account " + account) 
-      console.log("profile" + profile) 
       return true 
     
     }

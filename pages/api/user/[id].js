@@ -1,15 +1,18 @@
 /* eslint-disable import/no-anonymous-default-export */
 import db from '../../../utils/db';
+import { getSession } from 'next-auth/client'
 
 export default async (req, res) => {
   const { id } = req.query;
+  const session = await getSession({ req })
 
   try {
     if (req.method === 'PUT') {
-      await db.collection('user').doc(id).update({
-        ...req.body,
-        updated: new Date().toISOString(),
-      });
+      // diferenciar si es un insert o es un update
+      await db.collection('user').doc(id).update({...req.body,updated: new Date().toISOString(),});
+      if (session) {
+        // update
+      }
     } else if (req.method === 'GET') {
       const doc = await db.collection('user').doc(id).get();
       if (!doc.exists) {

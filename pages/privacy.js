@@ -1,5 +1,6 @@
+import Layout from '../components/layout'
 export default function Privacy(){
  return (
-  <>Privacy</>
+  <Layout>Privacy</Layout>
  )
 }

@@ -1,5 +1,6 @@
+import Layout from '../components/layout'
 export default function Terms(){
  return (
-  <>Terms</>
+    <Layout>Terms</Layout>
  )
 }
