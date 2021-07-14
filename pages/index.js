@@ -13,29 +13,63 @@ export default function Home() {
   return (
     <Layout>
       <main className='container mx-auto w-full md:w-8/12 py-6 '>
-        
-        {session && <>
-          {session.user.image && <span style={{ backgroundImage: `url(${session.user.image})` }} className='' />}
-          <div className='flex flex-col w-full'>
-            <div className='py-2 pr-2 w-4/12'>
-              <small>Signed in as</small><br />
-              <strong>{session.user.email || session.user.name}</strong>
-            </div>
 
-            <div className='py-2 w-3/12'>
-              <a
+        {session && <>
+          
+          <div className='w-full mx-auto '>
+          <div className="ml-6 md:ml-0 py-32 md:py-56">
+
+              <h1 className='mb-6 text-lx'>Hello <b>{session.user.name}</b></h1>
+
+              <Link href='/admin'>
+                <a className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                  Settings
+                </a>
+              </Link>
+
+              <Link href='/admin'>
+                <a className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 md:ml-4'>
+                  My QIQR
+                </a>
+              </Link>
+
+              
+                <a className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 md:ml-4'
                 href={`/api/auth/signout`}
-                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                 onClick={(e) => {
                   e.preventDefault()
                   signOut()
                 }}
-              >
-                Sign out
-              </a>
+                >
+                  Sign out
+                </a>
+
+                <br/><br/>
+                <small> Its QIQR because it is „Quicker“</small>
+              
+
             </div>
           </div>
+        </>}
 
+        {!session && <>
+          <div className='w-full mx-auto '>
+            <div className="ml-6 md:ml-0 py-32 md:py-56">
+
+              <h1 className='mb-6 text-2xl'>Bye, Business Card. <br />Hello, QIQR.</h1>
+
+
+              <a href={`/api/auth/signin`} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={(e) => {
+                e.preventDefault()
+                signIn()
+              }}>
+                Get your own
+              </a>
+              <br/><br/>
+              <small> Its QIQR because it is „Quicker“</small>
+
+            </div>
+          </div>
         </>}
       </main>
     </Layout>
