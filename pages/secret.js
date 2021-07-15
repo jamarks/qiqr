@@ -41,17 +41,17 @@ export default function Secret() {
    <main className='container w-10/12 mx-auto'>
 
     <h1 className='my-4 text-md'>Some of other guests</h1>
-    <div className='flex mb-4'>
+    <ul>
      {data && data.map((item) => (
-      <div className='' key={item.id} >
+      <li className='' key={item.id} >
        <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_VERCEL_URL}/u/${item.id}`}>
         <a className=''>
          {item.name} - {item.companyname}
         </a>
        </Link>
-      </div>
+      </li>
      ))}
-    </div>
+    </ul>
    </main>
 
    <footer className='container w-10/12 mx-auto'>

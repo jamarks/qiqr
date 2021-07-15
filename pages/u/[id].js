@@ -161,7 +161,7 @@ export default function Profile({ user, qrimage }) {
 
 
 }
-
+/*
 export async function getStaticPaths() {
 
   const entries = await db.collection('user').get();
@@ -177,8 +177,9 @@ export async function getStaticPaths() {
 
   return { paths, fallback: false }
 }
+*/
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps(context) {
   const entries = await db.collection('user').get();
 
   const entriesData = entries.docs.map(user => ({
@@ -188,16 +189,20 @@ export async function getStaticProps({ params }) {
 
 
   //****QR *******//
-  const user = entriesData.find(item => item.id == params.id)
+  const user = entriesData.find(item => item.id == context.params.id)
   let qrimage = await QRCode.toDataURL(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id, { errorCorrectionLevel: 'H' })
   // tengo la imagen en base64 en el archivo
   //****QR *******//
 
+  if (!user) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
     props: {
       user: user, qrimage: qrimage
-    },
-    revalidate: 10, // In seconds
+    }
   }
 }
