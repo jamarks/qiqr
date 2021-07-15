@@ -55,15 +55,15 @@ export default function Profile({ user, qrimage }) {
   //  console.log(user)
   return (
     <Layout title={user.profileName + ' | ' + user.profileCompanyName} description={user.profileAboutMe} keyworkds={user.profileName} currentURL={currentUrl} previewImage={user.profilePhoto} siteName='QIQR'>
-      <div className="flex flex-col-reverse lg:flex-row w-5-12 md:w-8/12 md:mx-auto bg-white dark:bg-gray-800 shadow rounded">
+      <div className="flex flex-col-reverse lg:flex-row md:w-8/12 md:mx-auto bg-white dark:bg-gray-800 shadow rounded">
         <div className="w-full lg:w-1/2">
           <div aria-label="card" className="px-5 md:py-3 py-8">
             <div className="flex justify-between items-center flex-col mb-3 ">
               {user.profileCompanyName &&
                 <div className='w-full '><h4 className="text-base text-blue-900 dark:text-indigo-600 tracking-normal leading-4">{user.profileCompanyName}</h4></div>
               }
-              {user.profileSubTitle &&
-              <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.profileName}<small className='pl-1 text-xs text-gray-500 font-light'> {user.profileSubTitle}</small></h1></div>
+                {user.profileName &&
+                <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.profileName}<small className='pl-1 text-xs text-gray-500 font-light'> {user.profileSubTitle}</small></h1></div>
             }
               {user.profileTitle &&
               <div className='w-full '><h2 className="lg:mt-0 text-gray-600 dark:text-gray-400 text-base font-normal">{user.profileTitle}</h2></div>
@@ -150,7 +150,9 @@ export default function Profile({ user, qrimage }) {
           </div>
         </div>
         <div className="relative w-full h-96 lg:h-100 lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
-          <Image unoptimized={true} className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.profilePhoto} alt={user.profileName} />
+          {user.profilePhoto &&
+            <Image unoptimized={true} className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.profilePhoto} alt={user.profileName} />
+          }
         </div>
       </div>
 

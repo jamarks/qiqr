@@ -7,7 +7,7 @@ export default async (req, res) => {
   const session = await getSession({ req })
   const data = req.body
   
-  //console.log(data)
+  console.log(data)
 
   if (session) {
     // update

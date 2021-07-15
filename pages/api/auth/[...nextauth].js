@@ -90,21 +90,19 @@ export default NextAuth({
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
+    
      async signIn(user, account, profile) { 
       
       const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/newUser',
       {
-        body: JSON.stringify({ ...user }),
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        body: JSON.stringify({ ...user, ...profile, ...account}),
+        headers: {'Content-Type': 'application/json'},
         method: 'POST'
       }
     )
-
       const result = await res.json()
       console.log(result)
-      return true 
+      return true
     
     }
   
