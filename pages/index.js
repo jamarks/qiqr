@@ -9,6 +9,21 @@ import { signIn, signOut, useSession } from 'next-auth/client'
 
 export default function Home() {
   const [session, loading] = useSession()
+  const [userData, setUserData] = useState('')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('/api/data/user/getUserData')
+      const json = await res.json()
+      if (json) {
+        //console.log(json)
+        setUserData(json)
+      }
+    }
+    if (session) {
+      fetchData()
+    }
+  }, [session])
 
   return (
     <Layout>
@@ -27,7 +42,7 @@ export default function Home() {
                 </a>
               </Link>
 
-              <Link href='/admin'>
+              <Link href={process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + userData.id}>
                 <a className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 md:ml-4'>
                   My QIQR
                 </a>

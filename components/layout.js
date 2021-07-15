@@ -40,6 +40,8 @@ export default function Layout({ children }) {
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
          </Head>
          <header>
+            <div className='flex justify-end container w-full mx-auto md:w-10/12'>
+            </div>
          </header>
          <main>
             {children}

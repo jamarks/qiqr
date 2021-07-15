@@ -1,20 +1,20 @@
-export default function textField({ name, placeholder, label, value='', readonly=false, required='false',size='2', textChange}) {
-    
+export default function textField(props) {
+    const style = props.readonly? 'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md  bg-gray-100 cursor-not-allowed':'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md '
     return (
         <>
             <div className="col-span-6 sm:col-span-3">
-                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                   {label}
+                <label htmlFor={props.name} className="block text-sm font-medium text-gray-700">
+                   {props.label}
                 </label>
                 <input
                     type="text"
-                    name={name}
-                    id={name}
-                    placeholder={placeholder}
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    value={value} 
-                    readOnly={readonly}
-                    onChange={textChange}
+                    name={props.name}
+                    id={props.name}
+                    placeholder={props.placeholder}
+                    className={style}
+                    value={props.value} 
+                    readOnly={props.readonly}
+                    onChange={(e)=>props.onChange(e)}
  
                 />
             </div>

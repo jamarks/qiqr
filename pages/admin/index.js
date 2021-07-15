@@ -1,17 +1,35 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import AccessDenied from '../../components/access-denied'
+import AccessDenied from '../../components/general/accesDenied'
+import LoadingLayer from '../../components/general/loadingLayer'
 
 import Layout from '../../components/layout'
 import UrlTextField from '../../components/admin/urlTextField'
 import TextField from '../../components/admin/textField'
 
 import { useSession } from 'next-auth/client'
+import NProgress from "nprogress";
 
 export default function Admin() {
-
+  
+  const [loadHandler, setLoadHandler] = useState(false)
   const [session, loading] = useSession()
+  
+  const toggleLoading = (value) => {
+    setLoadHandler(value)
+    return
+    /*  if(value){
+        setLoadHandler(true)
+//        NProgress.start();
+        
+      }else if(value='stop'){
+        setLoadHandler(false)
+//        NProgress.done();  
+      }
+      return
+    */
+  }
   //const [userData, setUserData] = useState()
 
   const [userData, setUserData] = useState({
@@ -34,31 +52,64 @@ export default function Admin() {
     profileAboutMe: '',
   });
 
+  const [photo, setPhoto] = useState();
+
+  const uploadPhoto = async (e) => {
+    toggleLoading(true)
+    const file = e.target.files[0];
+    const filename = encodeURIComponent(file.name);
+    const res = await fetch(`/api/upload-url?file=${filename}`);
+    const { url, fields } = await res.json();
+    const formData = new FormData();
+
+    Object.entries({ ...fields, file }).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const upload = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (upload.ok) {
+      setPhoto(process.env.NEXT_PUBLIC_S3_URL + '/' + filename)
+      setUserData({ ...userData, profilePhoto: process.env.NEXT_PUBLIC_S3_URL + '/' + filename });
+      //console.log(userData);
+      toggleLoading(false)
+    } else {
+      console.error('Upload failed.');
+      toggleLoading(false)
+    }
+  };
+
   const handleOnChange = event => {
     const { name, value } = event.target;
-    console.log(name, value)
-
-    setUserData({ ...inputValues, [name]: value });
+    setUserData({ ...userData, [name]: value });
   };
 
   useEffect(() => {
+    toggleLoading(true)
     const fetchData = async () => {
-      const res = await fetch('/api/data/user/loggedUser')
+      const res = await fetch('/api/data/user/getUserData')
       const json = await res.json()
       if (json) {
-        console.log(json)
-        setUserData(json.data)
+        //console.log(json)
+        setUserData(json)
+        setPhoto(json.profilePhoto)
+        toggleLoading(false)
       }
     }
     if (session) {
       fetchData()
     }
-  }, [session])
+  }, [])
 
   useEffect(() => {
-    //
   }, [userData])
 
+  
+  useEffect(() => {
+  }, [loading])
 
 
 
@@ -67,12 +118,44 @@ export default function Admin() {
 
   // If no session exists, display access denied message
   if (!session) { return <Layout><AccessDenied /></Layout> }
-
+  
   return (
     <Layout>
+      {loadHandler && 
+        <LoadingLayer></LoadingLayer>
+      }
       <div className='container w-10/12 mx-auto py-6'>
         <div>
           <div className="mt-10 sm:mt-0">
+            <div className="md:grid md:grid-cols-4 md:gap-6">
+              <div className="md:col-span-1">
+                <div className="px-4 sm:px-0">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">Your QIQR</h3>
+                  <p className="mt-1 text-sm text-gray-600">This is your permanent QIQR profile url and will never change.</p>
+                </div>
+              </div>
+              <div className="mt-5 md:mt-0 md:col-span-3">
+                <div className="shadow overflow-hidden sm:rounded-md">
+                  <div className="px-4 py-5 bg-white sm:p-6">
+                    <div className="grid grid-cols-6 gap-6">
+                      {session && 
+                        <Link href={process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + userData.id}>
+                          <a className='text-blue-700 underline' target='_blank'>
+                          {process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + userData.id}
+                          </a>
+                        </Link>
+                        
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="hidden sm:block" aria-hidden="true">
+            <div className="py-5">
+              <div className="border-t border-gray-200" />
+            </div>
+          </div>
             <div className="md:grid md:grid-cols-4 md:gap-6">
               <div className="md:col-span-1">
                 <div className="px-4 sm:px-0">
@@ -184,20 +267,12 @@ export default function Admin() {
                       <label className="block text-sm font-medium text-gray-700">Photo</label>
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
-                          {userData && <img className="w-full  inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" src={userData.profilePhoto} alt="Photo" />}
+                          {photo && <img className="w-full  inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" src={photo} alt="Photo" />}
                         </div>
                         <div className="col-span-6 sm:col-span-3">
-                          {userData &&
-                            <textarea
-                              id="profilePhoto"
-                              name="profilePhoto"
-                              rows={5}
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                              placeholder="https://......file.jpg"
-                              defaultValue={userData.profilePhoto}
-                            />
-                          }
+                          <input onChange={uploadPhoto} type="file" accept="image/png, image/jpeg" className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
                         </div>
+
                       </div>
                     </div>
                     <div className="grid grid-cols-1">

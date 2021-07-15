@@ -10,13 +10,14 @@ export default async (req, res) => {
     try {
       if (req.method === 'GET') {
         const userRef = db.collection('user');
-        // busco el supuesto unico perfil que tengo en la collection user con ese email. 
+        // busco el supuesto unico perfil que tengo en la collection user con ese email. Esto no deberia cambiar nunca.
         const search = await userRef.where('email', '==', session.user.email).get();  
         if (search.empty) {
           res.status(400).json({ error: 'User not found' });
         } else {
+          //console.log(search.docs[0].id)
           const user = search.docs[0].data()
-          res.status(200).json({ data: user })
+          res.status(200).json({id: search.docs[0].id, ...user })
         }
       }
     } catch (err) {
