@@ -25,14 +25,16 @@ const firestore = (
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
+  
+  //Providers.LinkedIn({
+  //  clientId: process.env.LINKEDIN_CLIENT_ID,
+  // clientSecret: process.env.LINKEDIN_CLIENT_SECRET
+ //}),
+  
   providers: [
     Providers.Google({
       clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
       clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
-    }),
-    Providers.LinkedIn({
-       clientId: process.env.LINKEDIN_CLIENT_ID,
-      clientSecret: process.env.LINKEDIN_CLIENT_SECRET
     }),
     Providers.Twitter({
       clientId: process.env.TWITTER_CLIENT_ID,

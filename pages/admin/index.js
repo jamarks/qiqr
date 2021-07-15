@@ -311,7 +311,7 @@ export default function Admin() {
             <div className="mt-6 md:mt-0 md:grid md:grid-cols-4 md:gap-6">
               <div className="md:col-span-1">
                 <div className="px-4 sm:px-0">
-                  <h3 className="text-lg font-medium leading-6 text-gray-900">Notifications</h3>
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">Notifications (Coming soon!)</h3>
                   <p className="mt-1 text-sm text-gray-600">Decide which communications you would like to receive and how.</p>
                 </div>
               </div>
@@ -332,41 +332,9 @@ export default function Admin() {
                           </div>
                           <div className="ml-3 text-sm">
                             <label htmlFor="comments" className="font-medium text-gray-700">
-                              Comments
+                              Contacts data changed
                             </label>
-                            <p className="text-gray-500">Get notified when someones posts a comment on a posting.</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start">
-                          <div className="flex items-center h-5">
-                            <input
-                              id="candidates"
-                              name="candidates"
-                              type="checkbox"
-                              className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                            />
-                          </div>
-                          <div className="ml-3 text-sm">
-                            <label htmlFor="candidates" className="font-medium text-gray-700">
-                              Candidates
-                            </label>
-                            <p className="text-gray-500">Get notified when a candidate applies for a job.</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start">
-                          <div className="flex items-center h-5">
-                            <input
-                              id="offers"
-                              name="offers"
-                              type="checkbox"
-                              className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                            />
-                          </div>
-                          <div className="ml-3 text-sm">
-                            <label htmlFor="offers" className="font-medium text-gray-700">
-                              Offers
-                            </label>
-                            <p className="text-gray-500">Get notified when a candidate accepts or rejects an offer.</p>
+                            <p className="text-gray-500">Get notified when someones changes any of their info (COMING SOON!!!!)</p>
                           </div>
                         </div>
                       </div>
