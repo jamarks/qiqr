@@ -28,6 +28,6 @@ module.exports = {
   },
   reactStrictMode: true,
   images: {
-    domains: ['via.placeholder.com', 'media-exp3.licdn.com','qrme-vercel.s3.eu-central-1.amazonaws.com'],
+    domains: ['via.placeholder.com', 'media-exp3.licdn.com','s3.eu-central-1.amazonaws.com','qrme-vercel.s3.eu-central-1.amazonaws.com'],
   },
 }
