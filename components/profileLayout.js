@@ -41,10 +41,12 @@ export default function Layout({ children,
       <main className='py-2 md:py-10 px-2 sm:px-6'>
         {children}
       </main>
-      <footer className='text-xs text-gray-400 text-right px-2 sm:px-6'>
+      <footer className='text-xs text-gray-600 text-right px-2 sm:px-6 md:w-8/12 md:mx-auto'>
         <Link href='/'>
-          <a>qrme</a>
+          <a>QIQR app</a>
         </Link>
+        <br/>
+        <small> Its QIQR because it is „Quicker“</small>
       </footer>
     </div>
   )

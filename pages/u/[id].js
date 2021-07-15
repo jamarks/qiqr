@@ -54,7 +54,7 @@ export default function Profile({ user, qrimage }) {
   const currentUrl = process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/u/' + user.id
   //  console.log(user)
   return (
-    <Layout title={user.profileName + ' | ' + user.profileCompanyName} description={user.profileAboutMe} keyworkds={user.profileName} currentURL={currentUrl} previewImage={user.profilePhoto} siteName='QRme'>
+    <Layout title={user.profileName + ' | ' + user.profileCompanyName} description={user.profileAboutMe} keyworkds={user.profileName} currentURL={currentUrl} previewImage={user.profilePhoto} siteName='QIQR'>
       <div className="flex flex-col-reverse lg:flex-row w-5-12 md:w-8/12 md:mx-auto bg-white dark:bg-gray-800 shadow rounded">
         <div className="w-full lg:w-1/2">
           <div aria-label="card" className="px-5 md:py-3 py-8">

@@ -23,9 +23,11 @@ export default async (req, res) => {
 
           //console.log(data)
           // diferenciar si es un insert o es un update
-          await db.collection('user').doc(id).update({...data,  updated: new Date().toISOString(),});
-          res.status(200).json({message:'User Updated'});
-          
+          const doc = await db.collection('user').doc(id).get();
+          if (doc.exists) {
+            await db.collection('user').doc(id).update({...data,  updated: new Date().toISOString(),});
+            res.status(200).json({message:'User Updated'});
+          }
         } 
       } catch (e) {
         res.status(400).json({ error: e });

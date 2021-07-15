@@ -80,7 +80,7 @@ export default function Admin() {
   useEffect(() => {
     toggleLoading(true)
     const fetchData = async () => {
-      const res = await fetch('/api/data/user/getUserData')
+      const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/getUserData')
       const json = await res.json()
       if (json) {
         //console.log(json)
