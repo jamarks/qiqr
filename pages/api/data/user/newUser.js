@@ -19,10 +19,12 @@ export default async (req, res) => {
         if (doc.empty) {
             const name = data.name? data.name : ''
             const email = data.email
-            
+            const profileName = name
+            const profileEmail = email
+            //const profilePhoto = data.picture? data.picture: ''
+
             // aca, si no tiene email, hay que hacer algo, probablemente devolver false y que tenga q loguearse con otro metodo.
-            
-            db.collection("user").add({name: name,email: email, created: new Date().toISOString()});
+            db.collection("user").add({name: name,email: email, profileName: profileName, profileEmail: profileEmail, created: new Date().toISOString()});
             res.status(200).json({message:'User Created'});
         }
         else
