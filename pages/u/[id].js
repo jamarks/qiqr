@@ -124,11 +124,6 @@ export default function Profile({ user, qrimage }) {
             </div>
           </div>
           <div className="px-5 py-1 flex flex-row border-t border-gray-300">
-            <button aria-label="save" className="text-blue-900 focus:outline-none focus:text-gray-400 hover:text-gray-400  text-gray-600 dark:text-gray-400  cursor-pointer mr-4">
-              <svg className="feather feather-bookmark" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-              </svg>
-            </button>
             <button onClick={(e) => Share(user.profileName, currentUrl)} aria-label="share" className="md:hidden mr-5 text-blue-900 dark:text-indigo-600  hover:text-indigo-500  focus:outline-none focus:text-indigo-500 cursor-pointer">
               <svg className="feather feather-share-2" xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx={18} cy={5} r={3} />
@@ -152,6 +147,9 @@ export default function Profile({ user, qrimage }) {
         <div className="relative w-full h-96 lg:h-100 lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
           {user.profilePhoto &&
             <Image unoptimized={true} className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.profilePhoto} alt={user.profileName} />
+          }
+          {!user.profilePhoto &&
+            <div className='w-full h-full bg-gray-400 opacity-75 mx-auto text-center pt-40'>[No photo yet]</div>
           }
         </div>
       </div>

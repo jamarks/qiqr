@@ -25,12 +25,9 @@ const firestore = (
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
-  
-  //Providers.LinkedIn({
-  //  clientId: process.env.LINKEDIN_CLIENT_ID,
-  // clientSecret: process.env.LINKEDIN_CLIENT_SECRET
- //}),
-  
+
+
+
   providers: [
     Providers.Google({
       clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
@@ -39,7 +36,25 @@ export default NextAuth({
     Providers.Twitter({
       clientId: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET
-    })
+    }),
+    /*Providers.LinkedIn({
+      clientId: process.env.LINKEDIN_CLIENT_ID,
+      clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+      scope: 'r_liteprofile',
+
+      profileUrl: 'https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
+
+      profile: (profileData) => {
+        console.log(profileData)
+        const profileImage = profileData?.profilePicture?.['displayImage~']?.elements[0]?.identifiers?.[0]?.identifier ?? ''
+        return {
+          id: profileData.id,
+          name: profileData.localizedFirstName + ' ' + profileData.localizedLastName,
+          email: null,
+          image: profileImage,
+        }
+      },
+    }),*/
   ],
   //database: process.env.POSTGRES_URL,
   adapter: FirebaseAdapter(firestore),
@@ -65,7 +80,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
-     secret: 'dsgkjdfg$#dfgh3dSFGtjdfhg#$sGsdfkgjdfg',
+    secret: 'dsgkjdfg$#dfgh3dSFGtjdfhg#$sGsdfkgjdfg',
     // Set to true to use encryption (default: false)
     // encryption: true,
     // You can define your own encode/decode functions for signing and encryption
@@ -92,22 +107,22 @@ export default NextAuth({
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
-    
-     async signIn(user, account, profile) { 
-      
+
+    async signIn(user, account, profile) {
+
       const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/newUser',
-      {
-        body: JSON.stringify({ ...user, ...profile, ...account}),
-        headers: {'Content-Type': 'application/json'},
-        method: 'POST'
-      }
-    )
+        {
+          body: JSON.stringify({ ...user, ...profile, ...account }),
+          headers: { 'Content-Type': 'application/json' },
+          method: 'POST'
+        }
+      )
       const result = await res.json()
       console.log(result)
       return true
-    
+
     }
-  
+
     // async redirect(url, baseUrl) { return baseUrl },
     // async session(session, user) { return session },
     // async jwt(token, user, account, profile, isNewUser) { return token }
@@ -122,5 +137,5 @@ export default NextAuth({
   theme: 'auto',
 
   // Enable debug messages in the console if you are having problems
-  debug: false,
+  debug: 'light',
 })

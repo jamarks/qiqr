@@ -258,16 +258,8 @@ export default function Admin() {
                     </div>
                   </div>
                 </div>
-                <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Save
-                    </button>
-                  </div>
               </div>
-              
+
             </div>
             <div className="hidden sm:block" aria-hidden="true">
               <div className="py-5">
@@ -311,14 +303,7 @@ export default function Admin() {
                       {userData && <TextField onChange={handleOnChange} label='Country' name='profileCountry' value={userData.profileCountry} placeholder='Germany'></TextField>}
                     </div>
                   </div>
-                  <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Save
-                    </button>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -348,14 +333,7 @@ export default function Admin() {
                       {userData && <TextField onChange={handleOnChange} label='Phone' name='profilePhone' value={userData.profilePhone} placeholder='+491111111111'></TextField>}
                     </div>
                   </div>
-                  <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Save
-                    </button>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -381,10 +359,10 @@ export default function Admin() {
                       <label className="block text-sm font-medium text-gray-700">Photo</label>
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
-                          {photo && <img className="w-full  inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" src={photo} alt="Photo" />}
-                          
-                          {!photo && 
-                            <div className='text-sm py-2'> No photo yet</div>
+                          {!photo && <img className="w-full inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" src={photo} alt="Photo" />}
+
+                          {photo &&
+                            <div className='w-full h-72 bg-gray-400 opacity-75 mx-auto text-center pt-32'>[No photo yet]</div>
                           }
                         </div>
                         <div className="col-span-6 sm:col-span-3">
@@ -395,26 +373,16 @@ export default function Admin() {
                             <span>Upload image</span>
                             <input id="file-upload" onChange={uploadPhoto} type="file" accept="image/png, image/jpeg" className="sr-only" />
                           </label>
-                          <br/>
-                          <div className='text-sm py-2 md:ml-5'> Image up to 2 MB. <br/>The smaller and sexier, the better. </div>
+                          <br />
+                          <div className='text-sm py-2 md:ml-5'> Image up to 2 MB. <br />The smaller and sexier, the better. </div>
                         </div>
 
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Save
-                    </button>
-                  </div>
               </div>
             </div >
-
-
 
             <div className="hidden sm:block" aria-hidden="true">
               <div className="py-5">
@@ -422,7 +390,7 @@ export default function Admin() {
               </div>
             </div>
 
-            <div className="mt-10 sm:mt-0">
+            <div className="mt-10 sm:mt-0 mb-16">
               <div className="mt-6 md:mt-0 md:grid md:grid-cols-4 md:gap-6">
                 <div className="md:col-span-1">
                   <div className="px-4 sm:px-0">
@@ -454,20 +422,30 @@ export default function Admin() {
                           </div>
                         </div>
                       </fieldset>
-                      
-                    </div>
-                    <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                      <button
-                        type="submit"
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      >
-                        Save
-                      </button>
+
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <footer className='md:invisible w-full fixed bottom-0 -left-0 opacity-75 '>
+              <div className='container w-full py-0'>
+                <button type="submit" className="w-full inline-flex justify-center pt-3 pb-3 border border-transparent shadow-sm text-md font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg className="w-6 h-6 mr-2 -top-px relative" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                  Save
+                </button>
+              </div>
+            </footer>
+            <footer className='invisible md:visible w-full md:w-auto fixed bottom-0 right-28 opacity-75 '>
+              <div className='container md:w-10/12 py-6 mr-2 md:mr-2'>
+                <button type="submit" className=" inline-flex justify-center pt-3 pb-3 pl-3 pr-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg className="w-6 h-6 mr-2 -top-px relative" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                  Save
+                </button>
+              </div>
+
+
+            </footer>
           </div>
         </form >
       </div >
