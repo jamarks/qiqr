@@ -359,9 +359,9 @@ export default function Admin() {
                       <label className="block text-sm font-medium text-gray-700">Photo</label>
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
-                          {!photo && <img className="w-full inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" src={photo} alt="Photo" />}
+                          {photo && <img className="w-full inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" src={photo} alt="Photo" />}
 
-                          {photo &&
+                          {!photo &&
                             <div className='w-full h-72 bg-gray-400 opacity-75 mx-auto text-center pt-32'>[No photo yet]</div>
                           }
                         </div>
