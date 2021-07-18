@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import AccessDenied from '../../components/general/accesDenied'
@@ -11,11 +13,14 @@ import TextField from '../../components/admin/textField'
 import { useSession } from 'next-auth/client'
 import NProgress from "nprogress";
 
+
+
 export default function Admin() {
 
   const [loadHandler, setLoadHandler] = useState(false)
   const [session, loading] = useSession()
   const [photo, setPhoto] = useState();
+  const router = useRouter()
 
   const [userData, setUserData] = useState({
     name: '',
@@ -36,6 +41,12 @@ export default function Admin() {
     profileSubTitle: '',
     profileAboutMe: '',
   });
+
+  useEffect(() => {
+		if (!session) 
+      router.push('/')
+	  // eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [session])
 
 
   const toggleLoading = (value) => {
@@ -142,12 +153,12 @@ export default function Admin() {
       {loadHandler &&
         <LoadingLayer></LoadingLayer>
       }
-      <div className='container w-full px-4 md:px-0 md:w-10/12 mx-auto py-6'>
+      <div className='container w-full px-4 md:px-0 md:w-10/12 mx-auto md:py-6'>
         <form onSubmit={(e) => Save(e)}>
           <div>
-            <div className="mt-6 md:mt-10 sm:mt-0">
-              <div className="md:grid md:grid-cols-4 md:gap-6">
-                <div className="md:col-span-1">
+            <div className="mt-2 md:mt-10 sm:mt-0">
+              <div className="md:grid md:grid-cols-4 md:gap-6 lg:hidden">
+                <div className="md:col-span-1 ">
                   <div className="px-4 sm:px-0">
                     <h3 className="text-lg font-medium leading-6 text-gray-900">Your QIQR</h3>
                     <p className="mt-1 text-sm text-gray-600">This is your permanent QIQR profile url and will never change.</p>
@@ -186,7 +197,7 @@ export default function Admin() {
                   </div>
                 </div>
               </div>
-              <div className="hidden sm:block" aria-hidden="true">
+              <div className="hidden sm:block lg:hidden" aria-hidden="true">
                 <div className="py-5">
                   <div className="border-t border-gray-200" />
                 </div>
