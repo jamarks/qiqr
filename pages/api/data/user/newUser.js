@@ -6,10 +6,12 @@ import { getSession } from 'next-auth/client'
 export default async (req, res) => {
   const session = await getSession({ req })
   const data = req.body
-  //console.log(data)
+  console.log('------ NEW USER -------')
+  console.log(data)
+  console.log('------ !NEW USER -------')
 
-  console.log('email:' + data.email)
-  console.log('name:' + data.name)
+  //console.log('email:' + data.email)
+  //console.log('name:' + data.name)
 
   if (data) {
     // update

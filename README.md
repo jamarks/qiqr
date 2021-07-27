@@ -1,34 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# QIQR app
 
-## Getting Started
+Buy Business Cards, hello QIQR
+Developed by [Javier Wasserman](https://www.javierwasserman.com)
 
-First, run the development server:
+## Description
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Basically we believe business cards are such an obsolete technology.
+So, there should be an quicker and less obsolete way to share personal information. Hello to QIQR
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+There is a QR generator and also a vcard generator, even with Nextjs on Vercel, uploading to an S3 bucket.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Technology and packages
+    "@next-auth/firebase-adapter": "^0.1.2",
+    "@tailwindcss/forms": "^0.3.3",
+    "aws-sdk": "^2.939.0",
+    "axios": "^0.21.1",
+    "firebase": "^8.7.0",
+    "firebase-admin": "^9.10.0",
+    "form-data": "^4.0.0",
+    "image-to-base64": "^2.2.0",
+    "next": "11.0.1",
+    "next-auth": "^3.27.3",
+    "nextjs-progressbar": "^0.0.11",
+    "nprogress": "^0.2.0",
+    "qrcode": "^1.4.4",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "vcards-js": "^2.10.0"
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Please make sure to update tests as appropriate.
 
-## Learn More
+## License
+MIT License
 
-To learn more about Next.js, take a look at the following resources:
+Copyright (c) [2021] [QIQR]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

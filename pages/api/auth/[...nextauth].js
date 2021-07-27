@@ -4,6 +4,7 @@ import { FirebaseAdapter } from "@next-auth/firebase-adapter"
 
 import firebase from "firebase/app"
 import "firebase/firestore"
+const axios = require('axios');
 
 
 const firebaseConfig = {
@@ -19,6 +20,47 @@ const firebaseConfig = {
 const firestore = (
   firebase.apps[0] ?? firebase.initializeApp(firebaseConfig)
 ).firestore()
+
+
+const getLinkedInEmail = async (accessToken) => {
+  try {
+     axios
+      .get(
+        `https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))&oauth2_access_token=${accessToken}`
+      )
+      .then(
+        (response) =>
+          response.data.elements[0]["handle~"].emailAddress
+      )
+      .then((response) => {
+        console.log(response)
+        return(response)
+      } )
+      .catch((e) => e);
+  } catch (e) {
+    return (e);
+  }
+};
+
+const getLinkedInPhoto = async (accessToken) => {
+  try {
+     axios
+      .get(
+        `https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))&oauth2_access_token=${accessToken}`
+      )
+      .then(
+        (response) =>
+          response.data.profilePicture["displayImage~"].elements[0].identifiers[0].identifier
+      )
+      .then((response) => {
+        console.log(response)
+        return(response)
+      } )
+      .catch((e) => e);
+  } catch (e) {
+    return e;
+  }
+};
 
 
 // For more information on each option (and a full list of options) go to
@@ -37,24 +79,32 @@ export default NextAuth({
       clientId: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET
     }),
-    /*Providers.LinkedIn({
+    Providers.LinkedIn({
       clientId: process.env.LINKEDIN_CLIENT_ID,
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-      scope: 'r_liteprofile',
+      scope: "r_liteprofile,r_emailaddress",
 
       profileUrl: 'https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
 
-      profile: (profileData) => {
-        console.log(profileData)
-        const profileImage = profileData?.profilePicture?.['displayImage~']?.elements[0]?.identifiers?.[0]?.identifier ?? ''
+      async profile(prof, tokens) {
+        const { accessToken } = tokens;
+        console.log('----- PROFILE -----')
+        console.log(prof)
+        const linkedinEmail = await getLinkedInEmail(accessToken)
+        console.log(linkedinEmail)
+        const linkedinPhoto = await getLinkedInPhoto(accessToken)
+        console.log(linkedinPhoto)
+        console.log('----- !PROFILE -----')
+        
+        
         return {
-          id: profileData.id,
-          name: profileData.localizedFirstName + ' ' + profileData.localizedLastName,
-          email: null,
-          image: profileImage,
-        }
+          ...prof,
+          name: prof.localizedFirstName + ' ' + prof.localizedLastName,
+          email: linkedinEmail,
+          image: linkedinPhoto,
+        };
       },
-    }),*/
+    }),
   ],
   //database: process.env.POSTGRES_URL,
   adapter: FirebaseAdapter(firestore),
@@ -64,7 +114,7 @@ export default NextAuth({
     // Use JSON Web Tokens for session instead of database sessions.
     // This option can be used with or without a database for users/accounts.
     // Note: `jwt` is automatically set to `true` if no database is specified.
-    jwt: true,
+    jwt: false,
 
     // Seconds - How long until an idle session expires and is no longer valid.
     maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -96,6 +146,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/pages
   pages: {
     newUser: '/admin',
+    
     // signIn: '/auth/signin',  // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
@@ -109,16 +160,18 @@ export default NextAuth({
   callbacks: {
 
     async signIn(user, account, profile) {
-
+      console.log('----- SIGN IN -----')
+      console.log(profile)
+      console.log('----- !SIGN IN -----')
       const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/newUser',
         {
-          body: JSON.stringify({ ...user, ...profile, ...account }),
+          body: JSON.stringify({ ...profile,  }),
           headers: { 'Content-Type': 'application/json' },
           method: 'POST'
         }
       )
       const result = await res.json()
-      console.log(result)
+      //console.log(result)
       return true
 
     }
@@ -134,8 +187,8 @@ export default NextAuth({
 
   // You can set the theme to 'light', 'dark' or use 'auto' to default to the
   // whatever prefers-color-scheme is set to in the browser. Default is 'auto'
-  theme: 'auto',
+  theme: 'light',
 
   // Enable debug messages in the console if you are having problems
-  debug: 'light',
+  debug: false,
 })

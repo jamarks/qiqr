@@ -16,7 +16,7 @@ const navigation = [
 ]
 
 
-const title = 'Bye, Business Card. Hello, QIQR.', description = '', keyworkds = '', currentURL = '', previewImage = '', siteName = ''
+const title = 'Bye, Business Card. Hello, QIQR. QR Generator', description = 'QR Generator and vCard Generator', keyworkds = 'vcard generator, qr generator', currentURL = 'https://qiqr.app', previewImage = '', siteName = 'QIQR app'
 
 
 export default function Layout({ children }) {
