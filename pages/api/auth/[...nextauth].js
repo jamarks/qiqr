@@ -23,20 +23,26 @@ const firestore = (
 
 
 const getLinkedInEmail = async (accessToken) => {
+  // console.log('Inicio de la llamada')
   try {
+
+    var response = await 
      axios
       .get(
         `https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))&oauth2_access_token=${accessToken}`
       )
-      .then(
-        (response) =>
-          response.data.elements[0]["handle~"].emailAddress
-      )
-      .then((response) => {
-        console.log(response)
-        return(response)
-      } )
-      .catch((e) => e);
+
+      return (response.data.elements[0]["handle~"].emailAddress)
+      // .then(
+      //   (response) =>
+      //     response.data.elements[0]["handle~"].emailAddress
+      // )
+      // .then((response) => {
+      //   console.log('Resuelve la llamada')
+      //   console.log('EMAIL > ' + response)
+      //   return(response)
+      // } )
+      // .catch((e) => e);
   } catch (e) {
     return (e);
   }
@@ -44,19 +50,22 @@ const getLinkedInEmail = async (accessToken) => {
 
 const getLinkedInPhoto = async (accessToken) => {
   try {
-     axios
+     
+    var response = await axios
       .get(
         `https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))&oauth2_access_token=${accessToken}`
       )
-      .then(
-        (response) =>
-          response.data.profilePicture["displayImage~"].elements[0].identifiers[0].identifier
-      )
-      .then((response) => {
-        console.log(response)
-        return(response)
-      } )
-      .catch((e) => e);
+
+      return (response.data.profilePicture["displayImage~"].elements[0].identifiers[0].identifier)
+      // .then(
+      //   (response) =>
+      //     response.data.profilePicture["displayImage~"].elements[0].identifiers[0].identifier
+      // )
+      // .then((response) => {
+      //   console.log('IMAGE > ' + response)
+      //   return(response)
+      // } )
+      // .catch((e) => e);
   } catch (e) {
     return e;
   }
@@ -88,13 +97,19 @@ export default NextAuth({
 
       async profile(prof, tokens) {
         const { accessToken } = tokens;
-        console.log('----- PROFILE -----')
-        console.log(prof)
-        const linkedinEmail = await getLinkedInEmail(accessToken)
-        console.log(linkedinEmail)
+         console.log('----- PROFILE -----')
+        // console.log(prof)
+        // console.log('Llamada a busqueda de Email')
+       const linkedinEmail = await getLinkedInEmail(accessToken)
+       console.log('Linkedin Email: '+ linkedinEmail)
+        // console.log('Salida a busqueda de Email')
+        // console.log("LinkedinEmail > " + linkedinEmail)
+        // console.log('Llamada a busqueda de Photo')
         const linkedinPhoto = await getLinkedInPhoto(accessToken)
-        console.log(linkedinPhoto)
-        console.log('----- !PROFILE -----')
+        // console.log('Salida a busqueda de Photo')
+        console.log('Linkedin Photo: '+ linkedinPhoto)
+        
+         console.log('----- !PROFILE -----')
         
         
         return {
@@ -160,9 +175,13 @@ export default NextAuth({
   callbacks: {
 
     async signIn(user, account, profile) {
-      console.log('----- SIGN IN -----')
+      console.log('----- SIGN IN ----- Profile')
       console.log(profile)
-      console.log('----- !SIGN IN -----')
+      console.log('----- SIGN IN ----- User')
+      console.log(user)
+      console.log('----- SIGN IN ----- Accout')
+      console.log(account)
+      console.log('----- FIN SIGN IN -----')
       const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/newUser',
         {
           body: JSON.stringify({ ...profile,  }),
@@ -190,5 +209,5 @@ export default NextAuth({
   theme: 'light',
 
   // Enable debug messages in the console if you are having problems
-  debug: false,
+  debug: true,
 })

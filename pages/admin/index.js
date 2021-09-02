@@ -103,7 +103,7 @@ export default function Admin() {
   };
 
   useEffect(() => {
-    //console.log(session)
+    console.log(session)
     toggleLoading(true)
     const fetchData = async () => {
       const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/getUserData')
