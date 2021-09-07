@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import mobilePreview from '../public/images/preview.png'
 import mobilePreviewTorcido from '../public/images/preview-torcido.png'
 import qiqrLogo from '../public/images/QIQR_Logo.png'
+import screenChris from '../public/images/screen-christoph.png'
 
 import Section from '../components/index/section'
 import Pricing from '../components/index/pricing'
@@ -71,8 +72,8 @@ export default function Home() {
       <Divisor />
       <Section title='Who needs another app?' subtitle='No one really. But this one makes sense' color='bg-gray-100'>
         <div className='flex'>
-        <div className='w-full md:w-2/12'></div>
-          <div className="mx-auto pl-0 w-10/12 md:w-6/12 md:ml-0 py-10 ">
+        <div className='w-full md:w-2/12 hidden md:block'></div>
+          <div className="mx-auto pl-0 w-12/12 md:w-6/12 md:ml-0 md:py-10 ">
             <p>Keep your contacts up-to-date efortless</p>
             <p>Share your contact data in 5 seconds </p>
             <p>Changed your phone? Your position? Let everyone know instantly</p>
@@ -89,8 +90,8 @@ export default function Home() {
             <p> Setup needed contacts per sectory of your company. Sindicate to all employess in one click. </p>
           </div>
           
-          <div className='mx-auto w-12/12 mt-8 md:ml-0 md:w-5/12 py-2 md:py-12 md:py-10 pl-12 '>
-            <img src='/images/preview-qiqr-w-logo.png' alt='QIQR Profile Preview' className='w-44'></img>
+          <div className='mx-auto w-12/12 mt-8 md:ml-0 md:w-5/12 py-2 md:py-0 pl-12 hidden md:block'>
+            <Image src={screenChris} width={200} height={378} alt='QIQR Profile Preview' className=''></Image>
           </div>
 
 
@@ -99,7 +100,7 @@ export default function Home() {
       </Section>
       <Divisor />
       <Section title='Pricing' subtitle='Plans starting at $0'>
-        <div className='flex'>
+        <div className='flex flex-col md:flex-row'>
           <Pricing title='Free' subtitle='Always free QIQR version' price='$0 - Always free'>
             <ul>
               <li>Free QIQR profile</li>
