@@ -4,6 +4,8 @@ import { FirebaseAdapter } from "@next-auth/firebase-adapter"
 
 import firebase from "firebase/app"
 import "firebase/firestore"
+import db from '../../../utils/db';
+
 const axios = require('axios');
 
 
@@ -26,23 +28,23 @@ const getLinkedInEmail = async (accessToken) => {
   // console.log('Inicio de la llamada')
   try {
 
-    var response = await 
-     axios
-      .get(
-        `https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))&oauth2_access_token=${accessToken}`
-      )
+    var response = await
+      axios
+        .get(
+          `https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))&oauth2_access_token=${accessToken}`
+        )
 
-      return (response.data.elements[0]["handle~"].emailAddress)
-      // .then(
-      //   (response) =>
-      //     response.data.elements[0]["handle~"].emailAddress
-      // )
-      // .then((response) => {
-      //   console.log('Resuelve la llamada')
-      //   console.log('EMAIL > ' + response)
-      //   return(response)
-      // } )
-      // .catch((e) => e);
+    return (response.data.elements[0]["handle~"].emailAddress)
+    // .then(
+    //   (response) =>
+    //     response.data.elements[0]["handle~"].emailAddress
+    // )
+    // .then((response) => {
+    //   console.log('Resuelve la llamada')
+    //   console.log('EMAIL > ' + response)
+    //   return(response)
+    // } )
+    // .catch((e) => e);
   } catch (e) {
     return (e);
   }
@@ -50,22 +52,22 @@ const getLinkedInEmail = async (accessToken) => {
 
 const getLinkedInPhoto = async (accessToken) => {
   try {
-     
+
     var response = await axios
       .get(
         `https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))&oauth2_access_token=${accessToken}`
       )
 
-      return (response.data.profilePicture["displayImage~"].elements[0].identifiers[0].identifier)
-      // .then(
-      //   (response) =>
-      //     response.data.profilePicture["displayImage~"].elements[0].identifiers[0].identifier
-      // )
-      // .then((response) => {
-      //   console.log('IMAGE > ' + response)
-      //   return(response)
-      // } )
-      // .catch((e) => e);
+    return (response.data.profilePicture["displayImage~"].elements[0].identifiers[0].identifier)
+    // .then(
+    //   (response) =>
+    //     response.data.profilePicture["displayImage~"].elements[0].identifiers[0].identifier
+    // )
+    // .then((response) => {
+    //   console.log('IMAGE > ' + response)
+    //   return(response)
+    // } )
+    // .catch((e) => e);
   } catch (e) {
     return e;
   }
@@ -93,32 +95,32 @@ export default NextAuth({
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
       scope: "r_liteprofile,r_emailaddress",
 
-      profileUrl: 'https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
+      // profileUrl: 'https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
 
-      async profile(prof, tokens) {
-        const { accessToken } = tokens;
-         console.log('----- PROFILE -----')
-        // console.log(prof)
-        // console.log('Llamada a busqueda de Email')
-       const linkedinEmail = await getLinkedInEmail(accessToken)
-       console.log('Linkedin Email: '+ linkedinEmail)
-        // console.log('Salida a busqueda de Email')
-        // console.log("LinkedinEmail > " + linkedinEmail)
-        // console.log('Llamada a busqueda de Photo')
-        const linkedinPhoto = await getLinkedInPhoto(accessToken)
-        // console.log('Salida a busqueda de Photo')
-        console.log('Linkedin Photo: '+ linkedinPhoto)
-        
-         console.log('----- !PROFILE -----')
-        
-        
-        return {
-          ...prof,
-          name: prof.localizedFirstName + ' ' + prof.localizedLastName,
-          email: linkedinEmail,
-          image: linkedinPhoto,
-        };
-      },
+      // async profile(prof, tokens) {
+      //   const { accessToken } = tokens;
+      //   console.log('----- PROFILE -----')
+      //   // console.log(prof)
+      //   // console.log('Llamada a busqueda de Email')
+      //   const linkedinEmail = await getLinkedInEmail(accessToken)
+      //   console.log('Linkedin Email: ' + linkedinEmail)
+      //   // console.log('Salida a busqueda de Email')
+      //   // console.log("LinkedinEmail > " + linkedinEmail)
+      //   // console.log('Llamada a busqueda de Photo')
+      //   const linkedinPhoto = await getLinkedInPhoto(accessToken)
+      //   // console.log('Salida a busqueda de Photo')
+      //   console.log('Linkedin Photo: ' + linkedinPhoto)
+
+      //   console.log('----- !PROFILE -----')
+
+
+      //   return {
+      //     id: prof.id, 
+      //     name: prof.localizedFirstName + ' ' + prof.localizedLastName,
+      //     email: linkedinEmail,
+      //     image: linkedinPhoto,
+      //   };
+      // },
     }),
   ],
   //database: process.env.POSTGRES_URL,
@@ -161,8 +163,8 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/pages
   pages: {
     newUser: '/admin',
-    
-    // signIn: '/auth/signin',  // Displays signin buttons
+
+    signIn: '/auth/signin',  // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
@@ -179,18 +181,73 @@ export default NextAuth({
       console.log(profile)
       console.log('----- SIGN IN ----- User')
       console.log(user)
-      console.log('----- SIGN IN ----- Accout')
+      console.log('----- SIGN IN ----- Account')
       console.log(account)
       console.log('----- FIN SIGN IN -----')
+
+      var userId = user.id
+      console.log('userID : ' + userId)
+      var accessToken = ''
+      var email = ''
+      var photo = ''
+      var userName = ''
+      
+      // Si no es Linkedin no deberia entrar aca. 
+      switch (account.provider) {
+        case 'linkedin': 
+          accessToken = account.accessToken
+          email = await getLinkedInEmail(accessToken)
+          photo = await getLinkedInPhoto(accessToken)
+          userName = profile.localizedFirstName + ' ' + profile.localizedLastName
+
+          console.log('Linkedin accesToken : ' + accessToken)
+          console.log('Linkedin Name:' + userName)
+          console.log('Linkedin Photo: ' + photo)
+          console.log('Linkedin Email: ' + email)
+
+          break;
+        case 'google': 
+          accessToken = account.accessToken
+          email = user.email
+          photo = user.image
+          userName = user.name
+
+          console.log('Google accesToken : ' + accessToken)
+          console.log('Google Name: ' + userName)
+          console.log('Google Photo: ' + photo)
+          console.log('Google Email: ' + email)
+
+        break;
+        case 'twitter': 
+          accessToken = account.accessToken
+          email = user.email
+          photo = user.image
+          userName = user.name
+
+          console.log('Twitter accesToken : ' + accessToken)
+          console.log('Twitter Name: ' + userName)
+          console.log('Twitter Photo: ' + photo)
+          console.log('Twitter Email: ' + email)
+
+        break;
+        // default: {
+        //   accessToken = ''
+        //   email = ''
+        //   photo = ''
+        //   userName = ''
+        // }
+      }
+      console.log('Entra al fetch')
       const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/newUser',
         {
-          body: JSON.stringify({ ...profile,  }),
+          body: JSON.stringify({ userId: userId, name: userName, email: email, photo: photo, }),
           headers: { 'Content-Type': 'application/json' },
           method: 'POST'
         }
       )
-      const result = await res.json()
+      //const result = await res.json()
       //console.log(result)
+
       return true
 
     }

@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import Head from 'next/head'
+import Image from 'next/image'
+
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import { signIn, signOut, useSession } from 'next-auth/client'
-
+import qiqrLogo from '../public/images/QIQR_Logo.png'
 
 
 const navigation = [
@@ -95,6 +97,12 @@ export default function Layout({ children }) {
             {children}
          </main>
          <footer>
+         <div className='container mx-auto w-10/12 md:w-10/12 pb-20'>
+            <div className='flex justify-between'>
+               <Image className='pull-right' src={qiqrLogo} width={25} height={25} alt='QIQR Logo'></Image>
+               <small>QIQR made with love.</small>
+            </div>
+         </div>
          </footer>
       </div>
 
