@@ -10,6 +10,7 @@ import mobilePreview from '../public/images/preview.png'
 import mobilePreviewTorcido from '../public/images/preview-torcido.png'
 import qiqrLogo from '../public/images/QIQR_Logo.png'
 import screenChris from '../public/images/screen-christoph.png'
+import screenJavi from '../public/images/preview-qiqr-w-logo.png'
 
 import Section from '../components/index/section'
 import Pricing from '../components/index/pricing'
@@ -65,7 +66,7 @@ export default function Home() {
 
           </div>
           <div className='mx-auto w-12/12 mt-8 md:ml-0 md:w-5/12 py-2 md:py-12 md:py-24'>
-            <img src='/images/preview-qiqr-w-logo.png' alt='QIQR Profile Preview' className='w-60'></img>
+            <Image src={screenJavi} alt='QIQR Profile Preview' className='w-60' width={240} height={455} quality={100}></Image>
           </div>
         </div>
       </section>
