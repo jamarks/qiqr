@@ -73,7 +73,7 @@ export default async (req, res) => {
           vCard.workAddress.city = doc.data().profileCity;
           vCard.workAddress.countryRegion = doc.data().profileCountry;
 
-          vCard.socialUrls['linkedIn'] = doc.data().profileLinkedin;
+          //vCard.socialUrls['linkedIn'] = doc.data().profileLinkedin;
           vCard.version = '3.0';
 
           const response = await fetch(`${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL}/api/upload-url?file=${filename}`);
