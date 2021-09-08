@@ -20,7 +20,7 @@ export default async (req, res) => {
     // update
     try {
         const doc = await db.collection('user').where('email', '==', data.email).get();  
-        
+        //console.log("DOC",doc)
         if (doc.empty) {
             // Insert User
             const name = data.name? data.name : ''
@@ -29,6 +29,9 @@ export default async (req, res) => {
             const profileEmail = email
             const profilePhoto = data.photo ? data.photo : ''
             const userId = data.userId ? data.userId : ''
+            
+            console.log('ALTA DE USUARIO')
+            console.log(name,email,profileName,profileEmail,profilePhoto,userId)  
             
             // aca, si no tiene email, hay que hacer algo, probablemente devolver false y que tenga q loguearse con otro metodo.
             db.collection("user").add({name: name,email: email, profileName: profileName, profileEmail: profileEmail, internalId : userId, profilePhoto: profilePhoto,  created: new Date().toISOString()});
