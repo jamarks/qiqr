@@ -2,8 +2,24 @@ body{
  @apply bg-white
 }
 
-h1,h2,h3{
-	@apply text-gray-base font-semibold
+.customlight {
+    @apply  font-light font-custom
+}
+
+.customnormal {
+    @apply  font-normal font-custom
+}
+.customsemibold {
+    @apply  font-semibold font-custom
+}
+
+.custombold {
+    @apply  font-bold font-custom
+}
+
+
+h1,h2,h3 {
+	@apply text-gray-base
 	
 }
 
@@ -40,4 +56,46 @@ h1,h2,h3{
 		transform: rotate(360deg);
 	}
 }
+
+@font-face {
+    font-family: 'NEXT ART';
+    src: local('NEXT ART Light'), local('NEXTART-Light'),
+        url('../public/fonts/NEXTART-Light.woff2') format('woff2'),
+        url('../public/fonts/NEXTART-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NEXT ART';
+    src: local('NEXT ART'), local('NEXTART'),
+        url('../public/fonts/NEXTART.woff2') format('woff2'),
+        url('../public/fonts/NEXTART.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'NEXT ART';
+    src: local('NEXT ART SemiBold'), local('NEXTART-SemiBold'),
+        url('../public/fonts/NEXTART-SemiBold.woff2') format('woff2'),
+        url('../public/fonts/NEXTART-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NEXT ART';
+    src: local('NEXT ART Heavy'), local('NEXTART-Heavy'),
+        url('../public/fonts/NEXTART-Heavy.woff2') format('woff2'),
+        url('../public/fonts/NEXTART-Heavy.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
 

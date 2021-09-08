@@ -63,7 +63,7 @@ export default function Profile({ user, qrimage }) {
                 <div className='w-full '><h4 className="text-base text-blue-900 dark:text-indigo-600 tracking-normal leading-4">{user.profileCompanyName}</h4></div>
               }
                 {user.profileName &&
-                <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl font-bold">{user.profileName}<small className='pl-1 text-xs text-gray-500 font-light'> {user.profileSubTitle}</small></h1></div>
+                <div className='w-full '><h1 className="mt-4 mb-0 tracking-normal text-xl lg:text-2xl custombold">{user.profileName}<small className='pl-1 text-xs text-gray-500 font-light'> {user.profileSubTitle}</small></h1></div>
             }
               {user.profileTitle &&
               <div className='w-full '><h2 className="lg:mt-0 text-gray-600 dark:text-gray-400 text-base font-normal">{user.profileTitle}</h2></div>

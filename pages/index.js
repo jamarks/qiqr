@@ -52,7 +52,7 @@ export default function Home() {
         <div className='flex flex-col md:flex-row'>
           <div className='md:w-1/12'></div>
           <div className="mx-auto pl-0 w-10/12 md:w-6/12 md:ml-0 py-15 md:py-32">
-            <h1 className='mb-8 text-4xl pt-16 md:pt-0 md:text-6xl'>Bye, Business Card. <br />Hello, QIQR.</h1>
+            <h1 className='custombold mb-8 text-4xl pt-16 md:pt-0 md:text-6xl'>Bye, Business Card. <br />Hello, QIQR.</h1>
 
             <a href={`/api/auth/signin`} className='bg-indigo-600 hover:bg-indigo-700  text-white font-bold py-2 mb-4 px-4 rounded' onClick={(e) => {
               e.preventDefault()
@@ -75,7 +75,7 @@ export default function Home() {
         <div className='flex'>
           <div className='w-full md:w-2/12 hidden md:block'></div>
           <div className="mx-auto pl-0 w-12/12 md:w-6/12 md:ml-0 md:py-10 ">
-            <h3 className='mt-0 mb-1'> We introduce a few innovations</h3>
+            <h3 className='custombold mt-0 mb-1'> We introduce a few innovations</h3>
             <ul>
               <li className=' text-base  text-gray-700'>Keep your contacts data up-to-date efortless</li>
               <li className=' text-base  text-gray-700'>Share all your contact data in 5 seconds </li>
@@ -84,14 +84,14 @@ export default function Home() {
               <li className=' text-base  text-gray-700'>Integreate with Behance, Github, Linkedin. </li>
               <li className=' text-base  text-gray-700'>It is private. Google can not see it. </li>
             </ul>
-            <h3 className='mt-3 mb-1'> Need more?</h3>
+            <h3 className='custombold mt-3 mb-1'> Need more?</h3>
             <ul>
               <li className=' text-base  text-gray-700'>Create different QIQR with different information. Share only what you want</li>
               <li className=' text-base  text-gray-700'>Track who saw your profile</li>
               <li className=' text-base  text-gray-700'></li>
             </ul>
 
-            <h3 className='mt-3 mb-1'> Corporate</h3>
+            <h3 className='custombold mt-3 mb-1'> Corporate</h3>
             <ul>
               <li className=' text-base  text-gray-700'> Own and manage your employees contacts. </li>
               <li className=' text-base  text-gray-700'> Setup needed contacts per sectory of your company. Sindicate to all employess in one click. </li>

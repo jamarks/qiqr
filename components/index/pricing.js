@@ -3,7 +3,7 @@ export default function Pricing({title, subtitle, price,children}){
     return <div className='w-full md:w-4/12 px-6 mt-10' >
         
         <div className='bg-gray-100 mb-2 px-2 py-1 '>
-            <h3 className='mt-3 mb-1 text-xl'>{title}</h3>
+            <h3 className='customsemibold mt-3 mb-1 text-xl'>{title}</h3>
             <span className='italic'>{subtitle}</span>
         </div>
         <div className='py-2 mb-4'>

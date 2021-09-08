@@ -8,7 +8,7 @@ export default function Section({children, title, subtitle,}){
     <div className='flex flex-col w-full px-4 sm:px-6'>
       <div className="pt-12 md:pt-20 ">
         <div className="w-full md:w-10/12 mx-auto text-center pb-12 md:pb-16">
-          <h2 className="text-3xl mb-4">{title}</h2>
+          <h2 className="custombold text-3xl mb-4">{title}</h2>
           <p className="text-xl text-gray-600 mb-8">{subtitle}</p>
           <div className='w-full text-left'>
             {children}</div>
