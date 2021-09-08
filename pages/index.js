@@ -54,7 +54,7 @@ export default function Home() {
           <div className="mx-auto pl-0 w-10/12 md:w-6/12 md:ml-0 py-15 md:py-32">
             <h1 className='mb-8 text-4xl pt-16 md:pt-0 md:text-6xl'>Bye, Business Card. <br />Hello, QIQR.</h1>
 
-            <a href={`/api/auth/signin`} className='bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 mb-4 px-4 rounded' onClick={(e) => {
+            <a href={`/api/auth/signin`} className='bg-indigo-600 hover:bg-indigo-700  text-white font-bold py-2 mb-4 px-4 rounded' onClick={(e) => {
               e.preventDefault()
               signIn()
             }}>
@@ -65,7 +65,7 @@ export default function Home() {
             <p className='text-xl mt-6'> It&apos;s QIQR because it is „Quicker“</p>
 
           </div>
-          <div className='mx-auto w-12/12 mt-8 md:ml-0 md:w-5/12 py-2 md:py-12 md:py-24'>
+          <div className='mx-auto w-12/12 mt-8 md:ml-0 md:w-5/12 py-2 md:py-24 '>
             <Image src={screenJavi} alt='QIQR Profile Preview' className='w-60' width={240} height={455} quality={100}></Image>
           </div>
         </div>
@@ -73,24 +73,31 @@ export default function Home() {
       <Divisor />
       <Section title='Who needs another app?' subtitle='No one really. But this one makes sense' color='bg-gray-100'>
         <div className='flex'>
-        <div className='w-full md:w-2/12 hidden md:block'></div>
+          <div className='w-full md:w-2/12 hidden md:block'></div>
           <div className="mx-auto pl-0 w-12/12 md:w-6/12 md:ml-0 md:py-10 ">
-            <p>Keep your contacts up-to-date efortless</p>
-            <p>Share your contact data in 5 seconds </p>
-            <p>Changed your phone? Your position? Let everyone know instantly</p>
-            <p>Print your QIQR! Whatever happens, your QR code will always be the same.</p>
-            <p>Integreate with Behance, Github, Linkedin. </p>
-            <p>It is private. Google can not see it. </p>
+            <h3 className='mt-0 mb-1'> We introduce a few innovations</h3>
+            <ul>
+              <li className=' text-base  text-gray-700'>Keep your contacts data up-to-date efortless</li>
+              <li className=' text-base  text-gray-700'>Share all your contact data in 5 seconds </li>
+              <li className=' text-base  text-gray-700'>Changed your phone? Your position? Let everyone know instantly</li>
+              <li className=' text-base  text-gray-700'>Print your QIQR! Your QR is unique and immutable.</li>
+              <li className=' text-base  text-gray-700'>Integreate with Behance, Github, Linkedin. </li>
+              <li className=' text-base  text-gray-700'>It is private. Google can not see it. </li>
+            </ul>
             <h3 className='mt-3 mb-1'> Need more?</h3>
-            <p>Create different QIQR with different information. Share only what you want</p>
-            <p>Track who saw your profile</p>
-            <p></p>
+            <ul>
+              <li className=' text-base  text-gray-700'>Create different QIQR with different information. Share only what you want</li>
+              <li className=' text-base  text-gray-700'>Track who saw your profile</li>
+              <li className=' text-base  text-gray-700'></li>
+            </ul>
 
             <h3 className='mt-3 mb-1'> Corporate</h3>
-            <p> Own and manage your employees contacts. </p>
-            <p> Setup needed contacts per sectory of your company. Sindicate to all employess in one click. </p>
+            <ul>
+              <li className=' text-base  text-gray-700'> Own and manage your employees contacts. </li>
+              <li className=' text-base  text-gray-700'> Setup needed contacts per sectory of your company. Sindicate to all employess in one click. </li>
+            </ul>
           </div>
-          
+
           <div className='mx-auto w-12/12 mt-8 md:ml-0 md:w-5/12 py-2 md:py-0 pl-12 hidden md:block'>
             <Image src={screenChris} width={200} height={378} alt='QIQR Profile Preview' className=''></Image>
           </div>
