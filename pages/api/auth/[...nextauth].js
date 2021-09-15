@@ -90,38 +90,38 @@ export default NextAuth({
       clientId: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET
     }),
-    Providers.LinkedIn({
-      clientId: process.env.LINKEDIN_CLIENT_ID,
-      clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-      scope: "r_liteprofile,r_emailaddress",
+    // Providers.LinkedIn({
+    //   clientId: process.env.LINKEDIN_CLIENT_ID,
+    //   clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+    //   scope: "r_liteprofile,r_emailaddress",
 
-      // profileUrl: 'https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
+    //   // profileUrl: 'https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))',
 
-      // async profile(prof, tokens) {
-      //   const { accessToken } = tokens;
-      //   console.log('----- PROFILE -----')
-      //   // console.log(prof)
-      //   // console.log('Llamada a busqueda de Email')
-      //   const linkedinEmail = await getLinkedInEmail(accessToken)
-      //   console.log('Linkedin Email: ' + linkedinEmail)
-      //   // console.log('Salida a busqueda de Email')
-      //   // console.log("LinkedinEmail > " + linkedinEmail)
-      //   // console.log('Llamada a busqueda de Photo')
-      //   const linkedinPhoto = await getLinkedInPhoto(accessToken)
-      //   // console.log('Salida a busqueda de Photo')
-      //   console.log('Linkedin Photo: ' + linkedinPhoto)
+    //   // async profile(prof, tokens) {
+    //   //   const { accessToken } = tokens;
+    //   //   console.log('----- PROFILE -----')
+    //   //   // console.log(prof)
+    //   //   // console.log('Llamada a busqueda de Email')
+    //   //   const linkedinEmail = await getLinkedInEmail(accessToken)
+    //   //   console.log('Linkedin Email: ' + linkedinEmail)
+    //   //   // console.log('Salida a busqueda de Email')
+    //   //   // console.log("LinkedinEmail > " + linkedinEmail)
+    //   //   // console.log('Llamada a busqueda de Photo')
+    //   //   const linkedinPhoto = await getLinkedInPhoto(accessToken)
+    //   //   // console.log('Salida a busqueda de Photo')
+    //   //   console.log('Linkedin Photo: ' + linkedinPhoto)
 
-      //   console.log('----- !PROFILE -----')
+    //   //   console.log('----- !PROFILE -----')
 
 
-      //   return {
-      //     id: prof.id, 
-      //     name: prof.localizedFirstName + ' ' + prof.localizedLastName,
-      //     email: linkedinEmail,
-      //     image: linkedinPhoto,
-      //   };
-      // },
-    }),
+    //   //   return {
+    //   //     id: prof.id, 
+    //   //     name: prof.localizedFirstName + ' ' + prof.localizedLastName,
+    //   //     email: linkedinEmail,
+    //   //     image: linkedinPhoto,
+    //   //   };
+    //   // },
+    // }),
   ],
   //database: process.env.POSTGRES_URL,
   adapter: FirebaseAdapter(firestore),
