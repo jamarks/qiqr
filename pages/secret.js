@@ -44,11 +44,11 @@ export default function Secret() {
         <h2 className='size-md'>{data.length} records</h2>
         <div className='flex flex-wrap '>
           {data && data.map((item) => (
-            <div key={item.id} className='w-full md:w-4/12 px-2 py-2'>
+            <div key={item.id} className='w-full md:w-6/12 px-2 py-2'>
               <Link href={`${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_VERCEL_URL}/u/${item.id}`}>
                 <a className=''>
-                  <div className=''>
-                    <div className="relative w-full h-48 md:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
+                  
+                    <div className="relative float-left h-48 md:w-1/3 rounded-t lg:rounded-t-none lg:rounded-r  ">
                       {item.profilePhoto &&
                         <Image unoptimized={true} className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={item.profilePhoto} alt={item.profileName} />
                       }
@@ -56,13 +56,13 @@ export default function Secret() {
                         <div className='w-full h-full bg-gray-400 opacity-75 mx-auto text-center pt-40'>[No photo yet]</div>
                       }
                     </div>
-                    <div className="w-full md:w-1/2 text-sm">
-                    {item.profileName}<br/>
+                    <div className="float-right md:w-2/3 text-sm pl-5">
+                    <b>{item.profileName}</b><br/>
                     {item.profileCompanyName}<br/>
                     {item.profileTitle}
                     
                     </div>
-                  </div>
+                  
                 </a>
               </Link>
             </div>
