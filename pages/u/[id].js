@@ -146,7 +146,7 @@ export default function Profile({ user, qrimage }) {
         </div>
         <div className="relative w-full h-96 lg:h-100 lg:w-1/2 rounded-t lg:rounded-t-none lg:rounded-r inline-block">
           {user.profilePhoto &&
-            <Image unoptimized={true} className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.profilePhoto} alt={user.profileName} />
+            <Image className="w-full h-full absolute inset-0 object-cover rounded-t lg:rounded-r lg:rounded-t-none" layout="fill" src={user.profilePhoto} alt={user.profileName} />
           }
           {!user.profilePhoto &&
             <div className='w-full h-full bg-gray-400 opacity-75 mx-auto text-center pt-40'>[No photo yet]</div>
