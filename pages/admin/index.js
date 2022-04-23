@@ -42,11 +42,12 @@ export default function Admin() {
     profileAboutMe: '',
   });
 
-  useEffect(() => {
+  /*useEffect(() => {
 		if (!session) 
       router.push('/')
 	  // eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [session])
+  */
 
 
   const toggleLoading = (value) => {
@@ -102,22 +103,34 @@ export default function Admin() {
     setUserData({ ...userData, [name]: value });
   };
 
-  useEffect(() => {
-    //console.log(session)
+  const fetchData = async () => {
+    //console.log('Fetch index admin')
     toggleLoading(true)
-    const fetchData = async () => {
-      const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/getUserData')
-      const json = await res.json()
-      if (json) {
-        //console.log(json)
-        setUserData(json)
-        setPhoto(json.profilePhoto)
-        toggleLoading(false)
-      }
+    const res = await fetch(process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_VERCEL_URL + '/api/data/user/getUserData')
+    const json = await res.json()
+    if (json) {
+      //console.log(json)
+      setUserData(json)
+      setPhoto(json.profilePhoto)
+      toggleLoading(false)
     }
+  }
+
+  useEffect(()=>{
+    //console.log('inicio')
     if (session) {
       fetchData()
     }
+
+  },[])
+
+  useEffect(() => {
+    if (!session) 
+      router.push('/')
+
+    //if (session) {
+    //  fetchData()
+    // }
   }, [session])
 
   const Save = async event => {
@@ -137,7 +150,7 @@ export default function Admin() {
 
     const result = await res.json()
     console.log(result)
-    setTimeout(() => { toggleLoading(false) }, 1000)
+    setTimeout(() => { toggleLoading(false) }, 500)
 
 
   }
@@ -402,6 +415,9 @@ export default function Admin() {
             </div>
 
             <div className="mt-10 sm:mt-0 mb-16">
+              <div className="md:col-span-1 py-8">
+                    <h1 className='text-2xl custombold font-medium leading-6 text-gray-900'>Premium features</h1>
+              </div>
               <div className="mt-6 md:mt-0 md:grid md:grid-cols-4 md:gap-6">
                 <div className="md:col-span-1">
                   <div className="px-4 sm:px-0">
@@ -420,7 +436,8 @@ export default function Admin() {
                               <input
                                 id="comments"
                                 name="comments"
-                                type="checkbox" checked
+                                onChange={()=>{return false;}}
+                                type="checkbox"
                                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                               />
                             </div>

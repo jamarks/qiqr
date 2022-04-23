@@ -12,6 +12,7 @@ import qiqrLogo from '../public/images/QIQR_Logo.png'
 import screenChris from '../public/images/screen-christoph.png'
 import screenJavi from '../public/images/preview-qiqr-w-logo.png'
 
+import Typeform from '../components/index/typeform'
 import Section from '../components/index/section'
 import Pricing from '../components/index/pricing'
 import Divisor from '../components/index/divisor'
@@ -110,33 +111,28 @@ export default function Home() {
       <Section title='Pricing' subtitle='Plans starting at $0'>
         <div className='flex flex-col md:flex-row'>
           <Pricing title='Free' subtitle='Always free QIQR version' price='$0 - Always free'>
-            <ul>
+          <ul className='list-disc pl-4'>
               <li>Free QIQR profile</li>
-              <li>Shearable QR code. Print it!</li>
-              <li>Lorem ipsum dolor sit amet, </li>
+              <li>Add your Website, Linkedin and more </li>
+              <li>Grab your permanent QR code. Print it!</li>
+              <li>Share your contact details easily</li>
             </ul>
           </Pricing>
-          <Pricing title='Personal & Business' subtitle='The real innovation' price='$1 monthly - Billed yearly'>
-            <ul>
-              <li>All free +</li>
-              <li>See who captured your QIQR</li>
-              <li>Be notice who change any of their profile contact info</li>
-              <li>consectetur adipiscing elit</li>
-              <li>Maecenas fermentum ante et sapien</li>
-              <li>Dignissim in viverra magna feugiat</li>
-              <li>Donec tempus ipsum nec neque dignissim </li>
+          <Typeform title='Business' subtitle='The real innovation' price='$1 monthly - Billed yearly'>
+          <ul className='list-disc pl-4'>
+              <li>Free QIQR features +</li>
+              <li>See other QIQR users who captured your QIQR</li>
+              <li>Create cloud lists of contacts</li>
+              <li>Get notified whit contact updates</li>
             </ul>
-          </Pricing>
-          <Pricing title='Corporate' subtitle='The real innovation' price='From $2.99 monthly'>
-            <ul>
-              <li>Free QIQR profile</li>
-              <li>Shearable QR code. Print it!</li>
-              <li>consectetur adipiscing elit</li>
-              <li>Maecenas fermentum ante et sapien</li>
-              <li>Dignissim in viverra magna feugiat</li>
-              <li>Donec tempus ipsum nec neque dignissim </li>
+          </Typeform>
+          <Typeform title='Corporate' subtitle='Go beyond' price='From $2.99 monthly'>
+          <ul className='list-disc pl-4'>
+              <li>Business QIQR features +</li>
+              <li>Customize the profile with logo, colors</li>              
+              <li>Integration with CRM</li>
             </ul>
-          </Pricing>
+          </Typeform>
         </div>
       </Section>
     </Layout>

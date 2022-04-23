@@ -26,19 +26,22 @@ export default function Layout({ children }) {
    const [session, loading] = useSession()
    const [userData, setUserData] = useState('')
 
-   useEffect(() => {
-      const fetchData = async () => {
-         const res = await fetch('/api/data/user/getUserData')
-         const json = await res.json()
-         if (json) {
-            //console.log(json)
-            setUserData(json)
-         }
+   const fetchData = async () => {
+      console.log('Fetch Layout')
+      const res = await fetch('/api/data/user/getUserData')
+      const json = await res.json()
+      if (json) {
+         console.log(json)
+         setUserData(json)
       }
+   }
+   
+   useEffect(() => {
       if (session) {
          fetchData()
       }
-   }, [session])
+   }, [])
+
    return (
 
       <div>
@@ -93,9 +96,7 @@ export default function Layout({ children }) {
                }
             </div>
          </header>
-         <main>
-            {children}
-         </main>
+         <main>{children}</main>
          <footer>
          <div className='container mx-auto w-10/12 md:w-10/12 pb-20'>
             <div className='flex justify-between'>
