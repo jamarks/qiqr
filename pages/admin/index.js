@@ -227,7 +227,7 @@ export default function Admin() {
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
 
-                        {userData && <TextField onChange={handleOnChange} label='Full name' name='name' value={userData.name} placeholder='Complete name' readonly={true}></TextField>}
+                        {1==0 && <TextField  onChange={handleOnChange} label='Full name' name='name' value={userData.name} placeholder='Complete name' readonly={true}></TextField>}
                         {userData && <TextField onChange={handleOnChange} label='Email' name='email' value={userData.email} placeholder='Email Address' readonly={true}></TextField>}
 
                       </div>
