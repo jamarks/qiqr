@@ -34,24 +34,19 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## License
-MIT License
+QIQR - Creative Commons Attribution-NonCommercial (CC-BY-NC) License
 
-Copyright (c) [2021] [QIQR]
+This open source project, QIQR, is licensed under the Creative Commons Attribution-NonCommercial (CC-BY-NC) license. This license allows you to use, modify, and distribute the project for non-commercial purposes, as long as you give credit to the original author(s) and indicate any changes you have made to the project.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Under this license, you are free to:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Use the project for non-commercial purposes, such as personal or educational use.
+Modify the project, adapt it to your needs, and distribute the modified version, as long as you give credit to the original author(s) and indicate any changes you have made to the project.
+Share the project with others, as long as you give credit to the original author(s) and indicate any changes you have made to the project.
+However, under this license, you are not allowed to:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Use the project for commercial purposes without obtaining the explicit consent of the original author(s).
+Sell or otherwise distribute the project or any modified version of the project for commercial purposes without obtaining the explicit consent of the original author(s).
+If you wish to use the project for commercial purposes or distribute it for commercial purposes, you must first contact the original author(s) and obtain their explicit consent.
+
+By using, modifying, or distributing this project, you agree to be bound by the terms of this license.
