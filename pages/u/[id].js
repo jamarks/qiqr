@@ -115,10 +115,9 @@ export default function Profile({ user, qrimage }) {
                 {loader &&
                   <Loader></Loader>
                 }
-
+                {/*
                 <a onClick={(e) => vCard(e, user.id)} className="cursor-pointer py-2 px-4 text-xs font-semibold leading-3 bg-blue-900 rounded hover:bg-indigo-600 focus:outline-none text-white">vCard</a>
-
-
+                */}
 
               </div>
             </div>

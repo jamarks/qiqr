@@ -20,13 +20,13 @@ import Divisor from '../components/index/divisor'
 export default function Home() {
   const [session] = useSession()
   const router = useRouter()
-
+/*
   useEffect(() => {
     if (session)
       router.push('/admin')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
-
+*/
 
   return (
     <Layout>
@@ -61,6 +61,8 @@ export default function Home() {
             }}>
               Get your own
             </a>
+            <br/><br/>
+            <button className='bg-indigo-600 hover:bg-indigo-700  text-white font-bold py-2 mb-4 px-4 rounded'>Connect your wallet</button>
 
             <br /><br />
             <p className='text-xl mt-6'> It&apos;s QIQR because it is „Quicker“</p>
